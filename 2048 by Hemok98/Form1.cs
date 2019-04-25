@@ -15,6 +15,37 @@ namespace _2048_by_Hemok98
         public Form1()
         {
             InitializeComponent();
+            this.game.RestartGame();
+            this.textBox1.Text = this.game.output();
+        }
+
+        private Game game = new Game();
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.game.Move(Movement.RIGHT);
+            this.textBox1.Text = this.game.output();
+            //this.game.addRandomCell();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.game.Move(Movement.LEFT);
+            this.textBox1.Text = this.game.output();
+            //this.game.addRandomCell();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.game.Move(Movement.UP);
+            this.textBox1.Text = this.game.output();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            this.game.Move(Movement.DOWN);
+            this.textBox1.Text = this.game.output();
         }
     }
 }

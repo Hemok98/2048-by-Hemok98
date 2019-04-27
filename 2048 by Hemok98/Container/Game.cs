@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace _2048_by_Hemok98
 {
@@ -14,13 +15,19 @@ namespace _2048_by_Hemok98
 
         private bool canUseSkill = true;
 
-        private bool skillActivated = false;
+        private bool skillActivated = false; //fix me private
 
-        private int skillX2Price = 1250;
+        private int startSkillX2Price = 1200;
 
-        private int skillDeletePrice = 1000;
+        private int startSkillDeletePrice = 1000;
 
-        private int skillBackPrice = 1000;
+        private int startSkillBackPrice = 1000;
+
+        private int skillX2Price = 0;
+
+        private int skillDeletePrice = 0;
+
+        private int skillBackPrice = 0;
 
         private int steps = 0;
 
@@ -52,9 +59,10 @@ namespace _2048_by_Hemok98
             this.addRandomCell();
             this.steps = 0;
             this.score = 0;
-            this.skillX2Price = 1250;
-            this.skillDeletePrice = 1000;
-            this.skillBackPrice = 1000;
+            this.skillX2Price = this.startSkillX2Price;
+            this.skillDeletePrice = this.startSkillDeletePrice;
+            this.skillBackPrice = this.startSkillBackPrice;
+            this.skillActivated = false;
 
         }
 
@@ -150,15 +158,6 @@ namespace _2048_by_Hemok98
         }
 
         //object.skills.x2()
-        public void UseSkill(Skills skill)
-        {
-            switch (skill)
-            {
-                case Skills.X2: cellsCount = 5;
-                    break; 
-            }
-                
-        }
 
         public void addRandomCell()
         {
@@ -182,11 +181,13 @@ namespace _2048_by_Hemok98
             this.cellsContainer[freeCells[rand, 0], freeCells[rand, 1]].num = 2;
         }
 
-        public int output(System.Windows.Forms.Button[,] displayMassive, System.Windows.Forms.Label stepsDisplay, System.Windows.Forms.Label scoreDisplay, System.Windows.Forms.Label recordDisplay)
+        public int output(Button[,] displayMassive, Label stepsDisplay, Label scoreDisplay, Label recordDisplay, Label x2PriceDisplay, Label deletePriceDisplay)
         {
             stepsDisplay.Text = "Ход: " + this.steps.ToString();
             scoreDisplay.Text = "Счёт: " + this.score.ToString();
             recordDisplay.Text = "Рекорд: " + this.record.ToString();
+            x2PriceDisplay.Text = "Цена: " + this.skillX2Price.ToString();
+            deletePriceDisplay.Text = "Цена: " + this.skillDeletePrice.ToString();
 
             for (int i = 0; i < this.cellsCount; i++)
             {
@@ -208,6 +209,88 @@ namespace _2048_by_Hemok98
             return this.cellsCount;
         }
 
+        public void selectActivatedSkill(Skills skill)
+        {
+            if (canUseSkill == false) return;
+            if (skillActivated == true) return;
+
+            switch (skill)
+            {
+                case Skills.X2:
+                {
+                    if (this.score >= this.skillX2Price)
+                    {
+                        skillActivated = true;
+                        this.activatedSkill = Skills.X2;
+                    }
+                    break;
+                } 
+                
+                case Skills.DELETE:
+                {
+                    if (this.score >= this.skillDeletePrice)
+                    {
+                        skillActivated = true;
+                        this.activatedSkill = Skills.DELETE;
+                    }
+                    break;
+                }
+
+                case Skills.BACK:
+                {
+                    if (this.score >= this.skillBackPrice)
+                    {
+                        //skillActivated = true;
+                        this.activatedSkill = Skills.BACK;
+                        this.canUseSkill = false;
+                    }
+                    break;
+                }
+            }
+        }
+
+        public bool UseSkill(int str, int column)
+        {
+            if (skillActivated == false) return false;
+
+            switch (this.activatedSkill)
+            {
+                case Skills.X2:
+                    {
+                        this.score -= this.skillX2Price;
+                        this.skillX2Price *= 5;
+                        this.skillX2Price /= 4;
+                        this.canUseSkill = false;
+                        this.cellsContainer[str, column].num += this.cellsContainer[str, column].num;
+                        this.skillActivated = false;
+                        break;
+                    }
+
+
+                case Skills.DELETE:
+                    {
+                        this.score -= this.skillDeletePrice;
+                        this.skillX2Price *= 5;
+                        this.skillX2Price /= 4;
+                        this.canUseSkill = false;
+                        this.cellsContainer[str, column].num -= this.cellsContainer[str, column].num;
+                        this.skillActivated = false;
+                        break;
+                    }
+
+                case Skills.BACK:
+                    {
+                        if (this.score >= this.skillBackPrice)
+                        {
+                            //skillActivated = true;
+                            activatedSkill = Skills.BACK;
+                        }
+                        break;
+                    }
+            }
+
+            return true;
+        }
     }
      
 

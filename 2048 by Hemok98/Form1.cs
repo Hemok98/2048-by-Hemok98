@@ -15,37 +15,56 @@ namespace _2048_by_Hemok98
         public Form1()
         {
             InitializeComponent();
+            MyInitializeComponent();
             this.game.RestartGame();
-            this.textBox1.Text = this.game.output();
+
+            string test = "";
+            int cellCount = this.game.output(this.cellsDispay, label1,  label2,  label3);
+            textBox1.Text = test;
+
         }
 
         private Game game = new Game();
 
 
-        private void button1_Click(object sender, EventArgs e)
+        private void RightButtonClick(object sender, EventArgs e)
         {
             this.game.Move(Movement.RIGHT);
-            this.textBox1.Text = this.game.output();
-            //this.game.addRandomCell();
+            int cellCount = this.game.output(this.cellsDispay, label1, label2, label3);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void LeftButtonClick(object sender, EventArgs e)
         {
             this.game.Move(Movement.LEFT);
-            this.textBox1.Text = this.game.output();
-            //this.game.addRandomCell();
+            int[,] cells = new int[4,4];
+            int cellCount = this.game.output(this.cellsDispay, label1, label2, label3);
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void UpButtonClick(object sender, EventArgs e)
         {
             this.game.Move(Movement.UP);
-            this.textBox1.Text = this.game.output();
+            int cellCount = this.game.output(this.cellsDispay, label1, label2, label3);
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void DownButtonClick(object sender, EventArgs e)
         {
             this.game.Move(Movement.DOWN);
-            this.textBox1.Text = this.game.output();
+            int cellCount = this.game.output(this.cellsDispay, label1, label2, label3);
+        }
+
+        private void restartButton_Click(object sender, EventArgs e)
+        {
+            game.RestartGame();
+            int cellCount = this.game.output(this.cellsDispay, label1, label2, label3);
+        }
+
+        private void cellsDisplayClick(object sender, EventArgs e)
+        {
+            Button cell = (Button)sender;
+            int indexX = int.Parse(cell.Name[0] + "");
+            int indexY = int.Parse(cell.Name[1] + "");
+            //cell.BackColor = System.Drawing.SystemColors.Highlight;
+
         }
     }
 }

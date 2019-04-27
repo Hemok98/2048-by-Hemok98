@@ -8,9 +8,31 @@ namespace _2048_by_Hemok98
 {
     partial class Game
     {
-        private Cells[,] cellsContainer = new Cells[6, 6];
+        private Cells[,] cellsContainer = new Cells[MAXCELLS, MAXCELLS];
 
         private int cellsCount = 4;
+
+        private bool canUseSkill = true;
+
+        private bool skillActivated = false;
+
+        private int skillX2Price = 1250;
+
+        private int skillDeletePrice = 1000;
+
+        private int skillBackPrice = 1000;
+
+        private int steps = 0;
+
+        private int score = 0;
+
+        private int record = 0;
+
+        public static int MAXCELLS = 6;
+
+        //private int skillX2Price = 1250;
+
+        private Skills activatedSkill;
 
         public void SetCellsCount()
         {
@@ -28,14 +50,22 @@ namespace _2048_by_Hemok98
                     this.cellsContainer[i, j] = new Cells(0);
                 }
             this.addRandomCell();
-                    
+            this.steps = 0;
+            this.score = 0;
+            this.skillX2Price = 1250;
+            this.skillDeletePrice = 1000;
+            this.skillBackPrice = 1000;
+
         }
 
         public void Move(Movement direction)
         {
+            if (skillActivated) return;
+
             int mainIndex = 0;
             int vertical = 0;
             int moves = 0;
+            int nowScore = 0;
             switch(direction)
             { 
                 case Movement.RIGHT: //movelogic
@@ -94,6 +124,7 @@ namespace _2048_by_Hemok98
                         {
                             if (second.num == mainCell.num)
                             {
+                                nowScore += second.num;
                                 second.num += second.num;
                                 mainCell.num = 0;
                                 second.changed = true;
@@ -108,10 +139,15 @@ namespace _2048_by_Hemok98
             for (int i = 0; i < this.cellsCount; i++)
                         for (int j = 0; j < this.cellsCount; j++)
                             this.cellsContainer[i, j].changed = false;
-            if (moves > 0) this.addRandomCell();
+            if (moves > 0)
+            {
+                this.addRandomCell();
+                this.steps++;
+                this.score += nowScore;
+                if (this.score > this.record) this.record = this.score;
+                this.canUseSkill = true;
+            }
         }
-
-        private bool canUseSkill = true;
 
         //object.skills.x2()
         public void UseSkill(Skills skill)
@@ -146,18 +182,30 @@ namespace _2048_by_Hemok98
             this.cellsContainer[freeCells[rand, 0], freeCells[rand, 1]].num = 2;
         }
 
-        public string output()
+        public int output(System.Windows.Forms.Button[,] displayMassive, System.Windows.Forms.Label stepsDisplay, System.Windows.Forms.Label scoreDisplay, System.Windows.Forms.Label recordDisplay)
         {
-            string final = "";
+            stepsDisplay.Text = "Ход: " + this.steps.ToString();
+            scoreDisplay.Text = "Счёт: " + this.score.ToString();
+            recordDisplay.Text = "Рекорд: " + this.record.ToString();
+
             for (int i = 0; i < this.cellsCount; i++)
             {
                 for (int j = 0; j < this.cellsCount; j++)
                 {
-                    final += cellsContainer[i, j].num.ToString() + " ";
+                    displayMassive[j, i].Text = this.cellsContainer[i, j].num.ToString();
                 }
-                final += "\r\n";
             }
-            return final;    
+            
+
+            for (int i = 0; i < MAXCELLS; i++)
+            {
+                for (int j = 0; j < MAXCELLS; j++)
+                {
+                    if (i >= cellsCount || j >= cellsCount) displayMassive[i, j].Visible = false;
+                }
+            }
+
+            return this.cellsCount;
         }
 
     }

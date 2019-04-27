@@ -20,6 +20,36 @@
             base.Dispose(disposing);
         }
 
+        private System.Windows.Forms.Button[,] cellsDispay = new System.Windows.Forms.Button[6, 6];
+
+        private void MyInitializeComponent()
+        {
+            for (int i = 0; i < Game.MAXCELLS; i++)
+            {
+                for (int j = 0; j < Game.MAXCELLS; j++)
+                {
+                    int xStart = 140; 
+                    int yStart = 50; 
+                    int size = 50;
+                    int indent = 10;
+
+                    this.cellsDispay[i, j] = new System.Windows.Forms.Button();
+                    //this.SuspendLayout();
+                    this.cellsDispay[i, j].Location = new System.Drawing.Point(xStart + i*(size + indent), yStart +  j*(size + indent));
+                    this.cellsDispay[i, j].Name = i.ToString() + j.ToString();
+                    this.cellsDispay[i, j].Size = new System.Drawing.Size(size, size);
+                    this.cellsDispay[i, j].TabIndex = 0;
+                    this.cellsDispay[i, j].Text = "";
+                    this.cellsDispay[i, j].UseVisualStyleBackColor = true;
+                    this.Controls.Add(this.cellsDispay[i, j]);
+                    this.cellsDispay[i, j].Click += new System.EventHandler(this.cellsDisplayClick);
+                    //this.cellsDispay[i, j].Click += new System.EventHandler(this.RightButtonClick);
+                    //this.ResumeLayout(false);
+                    //this.PerformLayout();
+                }
+            }
+        }
+
         #region Код, автоматически созданный конструктором форм Windows
 
         /// <summary>
@@ -28,72 +58,124 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.rightButton = new System.Windows.Forms.Button();
+            this.leftButton = new System.Windows.Forms.Button();
+            this.upButton = new System.Windows.Forms.Button();
+            this.downButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.restartButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // button1
+            // rightButton
             // 
-            this.button1.Location = new System.Drawing.Point(72, 97);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(30, 32);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "R";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.rightButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.rightButton.Location = new System.Drawing.Point(72, 97);
+            this.rightButton.Name = "rightButton";
+            this.rightButton.Size = new System.Drawing.Size(30, 32);
+            this.rightButton.TabIndex = 0;
+            this.rightButton.Text = "→";
+            this.rightButton.UseVisualStyleBackColor = false;
+            this.rightButton.Click += new System.EventHandler(this.RightButtonClick);
+            // 
+            // leftButton
+            // 
+            this.leftButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.leftButton.Location = new System.Drawing.Point(12, 97);
+            this.leftButton.Name = "leftButton";
+            this.leftButton.Size = new System.Drawing.Size(30, 32);
+            this.leftButton.TabIndex = 2;
+            this.leftButton.Text = "←";
+            this.leftButton.UseVisualStyleBackColor = false;
+            this.leftButton.Click += new System.EventHandler(this.LeftButtonClick);
+            // 
+            // upButton
+            // 
+            this.upButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.upButton.Location = new System.Drawing.Point(42, 59);
+            this.upButton.Name = "upButton";
+            this.upButton.Size = new System.Drawing.Size(30, 32);
+            this.upButton.TabIndex = 3;
+            this.upButton.Text = "↑";
+            this.upButton.UseVisualStyleBackColor = false;
+            this.upButton.Click += new System.EventHandler(this.UpButtonClick);
+            // 
+            // downButton
+            // 
+            this.downButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.downButton.Location = new System.Drawing.Point(42, 135);
+            this.downButton.Name = "downButton";
+            this.downButton.Size = new System.Drawing.Size(30, 32);
+            this.downButton.TabIndex = 4;
+            this.downButton.Text = "↓";
+            this.downButton.UseVisualStyleBackColor = false;
+            this.downButton.Click += new System.EventHandler(this.DownButtonClick);
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(7, 10);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(120, 26);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "label1";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            //
+            this.label2.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.Location = new System.Drawing.Point(133, 10);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(120, 26);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "label2";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            //
+            this.label3.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(259, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(120, 26);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "label3";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // textBox1
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox1.Location = new System.Drawing.Point(213, 30);
+            this.textBox1.Location = new System.Drawing.Point(385, 9);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(301, 331);
-            this.textBox1.TabIndex = 1;
+            this.textBox1.Size = new System.Drawing.Size(88, 280);
+            this.textBox1.TabIndex = 8;
             // 
-            // button2
+            // restartButton
             // 
-            this.button2.Location = new System.Drawing.Point(12, 97);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(30, 32);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "L";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(42, 59);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(30, 32);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Up";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(29, 135);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(43, 32);
-            this.button4.TabIndex = 4;
-            this.button4.Text = "Down";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.restartButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.restartButton.Location = new System.Drawing.Point(42, 189);
+            this.restartButton.Name = "restartButton";
+            this.restartButton.Size = new System.Drawing.Size(30, 32);
+            this.restartButton.TabIndex = 9;
+            this.restartButton.Text = "R";
+            this.restartButton.UseVisualStyleBackColor = false;
+            this.restartButton.Click += new System.EventHandler(this.restartButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(835, 543);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
+            this.ClientSize = new System.Drawing.Size(476, 293);
+            this.Controls.Add(this.restartButton);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.downButton);
+            this.Controls.Add(this.upButton);
+            this.Controls.Add(this.leftButton);
+            this.Controls.Add(this.rightButton);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -103,11 +185,15 @@
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button rightButton;
+        private System.Windows.Forms.Button leftButton;
+        private System.Windows.Forms.Button upButton;
+        private System.Windows.Forms.Button downButton;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button restartButton;
     }
 }
 

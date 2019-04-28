@@ -13,15 +13,22 @@ namespace _2048_by_Hemok98
 {
     public partial class Form1 : Form
     {
+        private bool showNew = false;
+
         public Form1()
         {
             InitializeComponent();
             MyInitializeComponent();
-            this.game.RestartGame();
+            int x = 0, y = 0;
+            this.game.RestartGame(ref x, ref y);
+            if ( x != -1)
+            {
+                ShowNewCell(x, y);
+            }
 
-            string test = "";
-            this.game.output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay);
-            textBox1.Text = test;
+            //string test = "";
+            this.game.Output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay,this.backPriceDisplay);
+            //textBox1.Text = test;
 
         }
 
@@ -30,33 +37,57 @@ namespace _2048_by_Hemok98
 
         private void RightButtonClick(object sender, EventArgs e)
         {
-            this.game.Move(Movement.RIGHT);
-            this.game.output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay);
+            int x = -1, y = -1;
+            this.game.Move(Movement.RIGHT, ref x, ref y);
+            if (x != -1)
+            {
+                ShowNewCell(x, y);
+            }
+            this.game.Output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay,this.backPriceDisplay);
         }
 
         private void LeftButtonClick(object sender, EventArgs e)
         {
-            this.game.Move(Movement.LEFT);
-            int[,] cells = new int[4,4];
-            this.game.output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay);
+            int x = -1, y = -1;
+            this.game.Move(Movement.LEFT, ref x, ref y);
+            if (x != -1)
+            {
+                ShowNewCell(x, y);
+            }
+            this.game.Output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay,this.backPriceDisplay);
         }
 
         private void UpButtonClick(object sender, EventArgs e)
         {
-            this.game.Move(Movement.UP);
-            this.game.output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay);
+            int x = -1, y = -1;
+            this.game.Move(Movement.UP, ref x, ref y);
+            if (x != -1)
+            {
+                ShowNewCell(x, y);
+            }
+            this.game.Output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay,this.backPriceDisplay);
         }
 
         private void DownButtonClick(object sender, EventArgs e)
         {
-            this.game.Move(Movement.DOWN);
-            this.game.output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay);
+            int x = -1, y = -1;
+            this.game.Move(Movement.DOWN, ref x, ref y);
+            if (x != -1)
+            {
+                ShowNewCell(x, y);
+            }
+            this.game.Output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay,this.backPriceDisplay);
         }
 
         private void RestartButtonClick(object sender, EventArgs e)
         {
-            game.RestartGame();
-            this.game.output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay);
+            int x = -1, y = -1;
+            this.game.RestartGame(ref x, ref y);
+            if (x != -1)
+            {
+                ShowNewCell(x, y);
+            }
+            this.game.Output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay,this.backPriceDisplay);
         }
 
         private async void CellsDisplayClick(object sender, EventArgs e)
@@ -68,7 +99,7 @@ namespace _2048_by_Hemok98
             if ( this.game.UseSkill(indexX,indexY) )
             {
                 await Task.Run(() => ChangeButtonColor(cell, System.Drawing.Color.Green));
-                this.game.output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay);
+                this.game.Output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay,this.backPriceDisplay);
             }
             else
             {
@@ -84,15 +115,31 @@ namespace _2048_by_Hemok98
             cell.BackColor = System.Drawing.Color.WhiteSmoke;
         }
 
+        private async void ShowNewCell(int x, int y)
+        {
+            if (this.showNew) await Task.Run(() => ChangeButtonColor(this.cellsDispay[y,x], System.Drawing.Color.LightBlue));
+        }
+
         private void X2ButtonClick(object sender, EventArgs e)
         {
-            this.game.selectActivatedSkill(Skills.X2);
+            this.game.SelectActivatedSkill(Skills.X2);
             //this.textBox1.Text += this.game.skillActivated.ToString();
         }
 
         private void DeleteButtonClick(object sender, EventArgs e)
         {
-            this.game.selectActivatedSkill(Skills.DELETE);
+            this.game.SelectActivatedSkill(Skills.DELETE);
+        }
+
+        private void BackButtonClick(object sender, EventArgs e)
+        {
+            this.game.SelectActivatedSkill(Skills.BACK);
+            this.game.Output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay,this.backPriceDisplay);
+        }
+
+        private void ChangeShowNewCells(object sender, EventArgs e)
+        {
+            this.showNew = !this.showNew;
         }
     }
 }

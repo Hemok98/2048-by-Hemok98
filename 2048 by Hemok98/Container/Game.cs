@@ -11,13 +11,15 @@ namespace _2048_by_Hemok98
     {
         private Cells[,] cellsContainer = new Cells[MAXCELLS, MAXCELLS];
 
+        private Cells[,] copyCellsContainer = new Cells[MAXCELLS, MAXCELLS];
+
         private int cellsCount = 4;
 
         private bool canUseSkill = true;
 
-        private bool skillActivated = false; //fix me private
+        private bool skillActivated = false;
 
-        private int startSkillX2Price = 1200;
+        private int startSkillX2Price = 1250;
 
         private int startSkillDeletePrice = 1000;
 
@@ -47,16 +49,20 @@ namespace _2048_by_Hemok98
             
         }
 
-        public void RestartGame()
+        public void RestartGame(ref int x, ref int y)
         {
             this.cellsContainer = new Cells[this.cellsCount, this.cellsCount];
+            this.copyCellsContainer = new Cells[this.cellsCount, this.cellsCount];
 
             for (int i = 0; i < this.cellsCount; i++)
                 for (int j = 0; j < this.cellsCount; j++)
                 {
                     this.cellsContainer[i, j] = new Cells(0);
+                    this.copyCellsContainer[i, j] = new Cells(0);
                 }
-            this.addRandomCell();
+            x = -1;
+            y = -1;
+            this.AddRandomCell(ref x, ref y);
             this.steps = 0;
             this.score = 0;
             this.skillX2Price = this.startSkillX2Price;
@@ -66,9 +72,18 @@ namespace _2048_by_Hemok98
 
         }
 
-        public void Move(Movement direction)
-        {
+        public void Move(Movement direction, ref int x, ref int y)
+        {   
             if (skillActivated) return;
+
+            Cells[,] copyCellsContainer = new Cells[this.cellsCount, this.cellsCount];
+            for (int i = 0; i < this.cellsCount; i++)
+            {
+                for (int j = 0; j < this.cellsCount; j++)
+                {
+                    copyCellsContainer[i, j] = new Cells(this.cellsContainer[i, j].num);
+                }
+            }
 
             int mainIndex = 0;
             int vertical = 0;
@@ -148,18 +163,26 @@ namespace _2048_by_Hemok98
                         for (int j = 0; j < this.cellsCount; j++)
                             this.cellsContainer[i, j].changed = false;
             if (moves > 0)
-            {
-                this.addRandomCell();
+            {   
+
+                this.AddRandomCell(ref x, ref y);
                 this.steps++;
                 this.score += nowScore;
                 if (this.score > this.record) this.record = this.score;
                 this.canUseSkill = true;
+                for (int i = 0; i < this.cellsCount; i++)
+                {
+                    for (int j = 0; j < this.cellsCount; j++)
+                    {
+                        this.copyCellsContainer[i, j].num = copyCellsContainer[i, j].num;
+                    }
+                }
             }
         }
 
         //object.skills.x2()
 
-        public void addRandomCell()
+        public void AddRandomCell(ref int x, ref int y)
         {
             int freeCellsCount = 0; //хранит кол-во свободных ячеек
             int[,] freeCells = new int[cellsCount* cellsCount, 2]; //хранит адреса свободных ячеек
@@ -174,20 +197,28 @@ namespace _2048_by_Hemok98
                         freeCellsCount++;
                     }
                 }
-            if (freeCellsCount == 0) return; //если нет свободных ячеек - выходим
+            if (freeCellsCount == 0)
+            {
+                x = -1;
+                y = -1;
+                return; //если нет свободных ячеек - выходим
+            }
 
             Random rm = new Random(); //если есть свободные ячейки - генерируем 2-ку в свободную из списка freeCells 
             int rand = rm.Next(0, freeCellsCount);
+            x = freeCells[rand, 0];
+            y = freeCells[rand, 1];
             this.cellsContainer[freeCells[rand, 0], freeCells[rand, 1]].num = 2;
         }
 
-        public int output(Button[,] displayMassive, Label stepsDisplay, Label scoreDisplay, Label recordDisplay, Label x2PriceDisplay, Label deletePriceDisplay)
+        public int Output(Button[,] displayMassive, Label stepsDisplay, Label scoreDisplay, Label recordDisplay, Label x2PriceDisplay, Label deletePriceDisplay, Label backPriceDisplay)
         {
             stepsDisplay.Text = "Ход: " + this.steps.ToString();
             scoreDisplay.Text = "Счёт: " + this.score.ToString();
             recordDisplay.Text = "Рекорд: " + this.record.ToString();
             x2PriceDisplay.Text = "Цена: " + this.skillX2Price.ToString();
             deletePriceDisplay.Text = "Цена: " + this.skillDeletePrice.ToString();
+            backPriceDisplay.Text = "Цена: " + this.skillBackPrice.ToString();
 
             for (int i = 0; i < this.cellsCount; i++)
             {
@@ -209,7 +240,7 @@ namespace _2048_by_Hemok98
             return this.cellsCount;
         }
 
-        public void selectActivatedSkill(Skills skill)
+        public void SelectActivatedSkill(Skills skill)
         {
             if (canUseSkill == false) return;
             if (skillActivated == true) return;
@@ -240,9 +271,18 @@ namespace _2048_by_Hemok98
                 {
                     if (this.score >= this.skillBackPrice)
                     {
-                        //skillActivated = true;
-                        this.activatedSkill = Skills.BACK;
-                        this.canUseSkill = false;
+                        this.score -= this.skillBackPrice;
+                        this.skillBackPrice *= 5;
+                        this.skillBackPrice /= 4;
+                            for (int i = 0; i < this.cellsCount; i++)
+                            {
+                                for (int j = 0; j < this.cellsCount; j++)
+                                {
+                                    this.cellsContainer[i, j].num = this.copyCellsContainer[i, j].num;
+                                }
+                            }
+                    this.activatedSkill = Skills.BACK;
+                    this.canUseSkill = false;
                     }
                     break;
                 }

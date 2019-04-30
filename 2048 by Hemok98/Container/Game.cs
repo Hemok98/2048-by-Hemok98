@@ -13,7 +13,7 @@ namespace _2048_by_Hemok98
 
         private Cells[,] copyCellsContainer = new Cells[MAXCELLS, MAXCELLS];
 
-        private int cellsCount = 4;
+        public int cellsCount = 4;
 
         private bool canUseSkill = true;
 
@@ -35,7 +35,7 @@ namespace _2048_by_Hemok98
 
         private int score = 0;
 
-        private int record = 0;
+        private int record = Properties.Settings.Default.saveRecord;
 
         public static int MAXCELLS = 6;
 
@@ -211,7 +211,7 @@ namespace _2048_by_Hemok98
             this.cellsContainer[freeCells[rand, 0], freeCells[rand, 1]].num = 2;
         }
 
-        public int Output(Button[,] displayMassive, Label stepsDisplay, Label scoreDisplay, Label recordDisplay, Label x2PriceDisplay, Label deletePriceDisplay, Label backPriceDisplay)
+        public void Output(Button[,] displayMassive, Label stepsDisplay, Label scoreDisplay, Label recordDisplay, Label x2PriceDisplay, Label deletePriceDisplay, Label backPriceDisplay)
         {
             stepsDisplay.Text = "Ход: " + this.steps.ToString();
             scoreDisplay.Text = "Счёт: " + this.score.ToString();
@@ -225,6 +225,24 @@ namespace _2048_by_Hemok98
                 for (int j = 0; j < this.cellsCount; j++)
                 {
                     displayMassive[j, i].Text = this.cellsContainer[i, j].num.ToString();
+                    if (displayMassive[j, i].Text == "0") displayMassive[j, i].Text = "";
+                    
+                    if (this.cellsContainer[i, j].num == 0) displayMassive[j, i].BackColor = System.Drawing.Color.WhiteSmoke;
+                    if (this.cellsContainer[i, j].num == 2) displayMassive[j, i].BackColor = System.Drawing.Color.Gainsboro;
+                    if (this.cellsContainer[i, j].num == 4) displayMassive[j, i].BackColor = System.Drawing.Color.Silver;
+                    if (this.cellsContainer[i, j].num == 8) displayMassive[j, i].BackColor = System.Drawing.Color.PeachPuff;
+                    if (this.cellsContainer[i, j].num == 16) displayMassive[j, i].BackColor = System.Drawing.Color.DarkSalmon;
+                    if (this.cellsContainer[i, j].num == 32) displayMassive[j, i].BackColor = System.Drawing.Color.Tomato;
+                    if (this.cellsContainer[i, j].num == 64) displayMassive[j, i].BackColor = System.Drawing.Color.OrangeRed;
+                    if (this.cellsContainer[i, j].num == 128) displayMassive[j, i].BackColor = System.Drawing.Color.LemonChiffon;
+                    if (this.cellsContainer[i, j].num == 256) displayMassive[j, i].BackColor = System.Drawing.Color.Khaki;
+                    if (this.cellsContainer[i, j].num == 512) displayMassive[j, i].BackColor = System.Drawing.Color.Yellow;
+                    if (this.cellsContainer[i, j].num == 1024) displayMassive[j, i].BackColor = System.Drawing.Color.Gold;
+                    if (this.cellsContainer[i, j].num == 2048) displayMassive[j, i].BackColor = System.Drawing.Color.Goldenrod;
+                    if (this.cellsContainer[i, j].num == 4096) displayMassive[j, i].BackColor = System.Drawing.Color.Salmon;
+                    if (this.cellsContainer[i, j].num == 8192) displayMassive[j, i].BackColor = System.Drawing.Color.IndianRed;
+                    if (this.cellsContainer[i, j].num > 16384) displayMassive[j, i].BackColor = System.Drawing.Color.Brown;
+
                 }
             }
             
@@ -233,11 +251,10 @@ namespace _2048_by_Hemok98
             {
                 for (int j = 0; j < MAXCELLS; j++)
                 {
-                    if (i >= cellsCount || j >= cellsCount) displayMassive[i, j].Visible = false;
+                    displayMassive[i, j].Visible = !(i >= cellsCount || j >= cellsCount);
+
                 }
             }
-
-            return this.cellsCount;
         }
 
         public void SelectActivatedSkill(Skills skill)
@@ -330,6 +347,11 @@ namespace _2048_by_Hemok98
             }
 
             return true;
+        }
+
+        public int GetRecord()
+        {
+            return this.record;
         }
     }
      

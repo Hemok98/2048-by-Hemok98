@@ -11,7 +11,7 @@ namespace _2048_by_Hemok98
     {
         private void ChangeTrackBarValue(object sender, EventArgs e)
         {
-            trackBarLabel.Text = String.Format("Число ячеек : {0}", cellsCountTrackBar.Value);
+            this.trackBarLabel.Text = String.Format("Число ячеек : {0}", cellsCountTrackBar.Value);
         }
 
         private System.Windows.Forms.Label optinsNameDisplay;
@@ -19,6 +19,7 @@ namespace _2048_by_Hemok98
         private System.Windows.Forms.Label trackBarLabel;
         private System.Windows.Forms.CheckBox showNewCheckBox;
         private System.Windows.Forms.CheckBox WASDcheckBox;
+        private System.Windows.Forms.CheckBox resetRecordCheckBox;
         private System.Windows.Forms.Button acceptOptions;
         private System.Windows.Forms.Panel panel2;
 
@@ -28,6 +29,7 @@ namespace _2048_by_Hemok98
             this.trackBarLabel = new System.Windows.Forms.Label();
             this.optinsNameDisplay = new System.Windows.Forms.Label();
             this.showNewCheckBox = new System.Windows.Forms.CheckBox();
+            this.resetRecordCheckBox = new System.Windows.Forms.CheckBox();
             this.WASDcheckBox = new System.Windows.Forms.CheckBox();
             this.acceptOptions = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -72,8 +74,22 @@ namespace _2048_by_Hemok98
             this.optinsNameDisplay.Text = "Настройки";
             this.optinsNameDisplay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // showNewCheckBox
+            // resetRecordCheckBox
+            //
+            this.resetRecordCheckBox.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.resetRecordCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.resetRecordCheckBox.Location = new System.Drawing.Point(380, 125);
+            this.resetRecordCheckBox.Name = "resetRecordCheckBox";
+            this.resetRecordCheckBox.Size = new System.Drawing.Size(380, 45);
+            this.resetRecordCheckBox.TabIndex = 2;
+            this.resetRecordCheckBox.Text = "Обнулить рекорд";
+            this.resetRecordCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.resetRecordCheckBox.UseVisualStyleBackColor = false;
+
+
             // 
+            // showNewCheckBox
+            //
             this.showNewCheckBox.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.showNewCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.showNewCheckBox.Location = new System.Drawing.Point(0, 125);
@@ -119,21 +135,27 @@ namespace _2048_by_Hemok98
             this.panel2.Controls.Add(this.trackBarLabel);
             this.panel2.Controls.Add(this.cellsCountTrackBar);
             this.panel2.Controls.Add(this.optinsNameDisplay);
-            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Controls.Add(this.resetRecordCheckBox);
+            this.panel2.Location = new System.Drawing.Point(0, 30);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(763, 460);
+            this.panel2.Size = new System.Drawing.Size(774, 480);
             this.panel2.TabIndex = 5;
 
             this.Controls.Add(this.panel2);
             ((System.ComponentModel.ISupportInitialize)(this.cellsCountTrackBar)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.ResumeLayout(false);
 
-            this.WASDcheckBox.Checked = this.canUseKeys;
-            this.showNewCheckBox.Checked = this.showNew;
+            //this.WASDcheckBox.Checked = this.canUseKeys;
+            //this.showNewCheckBox.Checked = this.showNew;
         }
 
+        private void SetDisplayOption()
+        {
+            this.WASDcheckBox.Checked = this.canUseKeys;
+            this.showNewCheckBox.Checked = this.showNew;
+            this.cellsCountTrackBar.Value = this.game.cellsCount;
+            this.trackBarLabel.Text = String.Format("Число ячеек : {0}", cellsCountTrackBar.Value);
+            this.resetRecordCheckBox.Checked = false;
+        }
 
         private void AcceptOptionsClick(object sender, EventArgs e)
         {
@@ -141,18 +163,21 @@ namespace _2048_by_Hemok98
             this.showNew = this.showNewCheckBox.Checked;
             this.setCellsDiplay(cellsCountTrackBar.Value);
             this.game.cellsCount = cellsCountTrackBar.Value;
+            if (this.resetRecordCheckBox.Checked == true)
+            {
+                this.game.SetRecord(0);
+            }
 
-            int x = 0, y = 0;
-            this.game.RestartGame(ref x, ref y);
+            int x = -1, y = -1;
+            if (this.cellsCountTrackBar.Value != this.displayCellsCount) this.game.RestartGame(ref x, ref y);
+            this.displayCellsCount = this.cellsCountTrackBar.Value;
             if (x != -1)
             {
                 ShowNewCell(x, y);
             }
 
             this.game.Output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay, this.backPriceDisplay);
-
-            panel1.Visible = true;
-            panel2.Visible = false;
+            MessageBox.Show("Настройки успешно применены", "2048");
         }
 
         private void setCellsDiplay(int count)

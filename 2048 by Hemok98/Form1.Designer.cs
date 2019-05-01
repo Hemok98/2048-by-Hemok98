@@ -78,8 +78,9 @@ namespace _2048_by_Hemok98
             this.backButton = new System.Windows.Forms.Button();
             this.DeleteButton = new System.Windows.Forms.Button();
             this.x2Button = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.goToOptionsButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.goToMainPanelButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -164,7 +165,7 @@ namespace _2048_by_Hemok98
             // restartButton
             // 
             this.restartButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.restartButton.Location = new System.Drawing.Point(529, 138);
+            this.restartButton.Location = new System.Drawing.Point(510, 138);
             this.restartButton.Name = "restartButton";
             this.restartButton.Size = new System.Drawing.Size(30, 32);
             this.restartButton.TabIndex = 9;
@@ -238,23 +239,22 @@ namespace _2048_by_Hemok98
             this.x2Button.UseVisualStyleBackColor = false;
             this.x2Button.Click += new System.EventHandler(this.X2ButtonClick);
             // 
-            // button1
+            // goToOptionsButton
             // 
-            this.button1.BackColor = System.Drawing.Color.LightGray;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.ForeColor = System.Drawing.Color.DarkRed;
-            this.button1.Location = new System.Drawing.Point(420, 423);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(227, 34);
-            this.button1.TabIndex = 17;
-            this.button1.Text = "Настройки";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.goToOptionsButton.BackColor = System.Drawing.Color.LightGray;
+            this.goToOptionsButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.goToOptionsButton.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Bold);
+            this.goToOptionsButton.ForeColor = System.Drawing.Color.DarkRed;
+            this.goToOptionsButton.Location = new System.Drawing.Point(100, 0);
+            this.goToOptionsButton.Name = "goToOptionsButton";
+            this.goToOptionsButton.Size = new System.Drawing.Size(100, 30);
+            this.goToOptionsButton.TabIndex = 17;
+            this.goToOptionsButton.Text = "Настройки";
+            this.goToOptionsButton.UseVisualStyleBackColor = true;
+            this.goToOptionsButton.Click += new System.EventHandler(this.GoToOptionsClick);
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.backPriceDisplay);
             this.panel1.Controls.Add(this.backButton);
             this.panel1.Controls.Add(this.deletePriceDisplay);
@@ -269,23 +269,39 @@ namespace _2048_by_Hemok98
             this.panel1.Controls.Add(this.upButton);
             this.panel1.Controls.Add(this.leftButton);
             this.panel1.Controls.Add(this.rightButton);
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(0, 30);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(780, 500);
+            this.panel1.Size = new System.Drawing.Size(774, 480);
             this.panel1.TabIndex = 18;
+            // 
+            // goToMainPanelButton
+            // 
+            this.goToMainPanelButton.BackColor = System.Drawing.Color.LightGray;
+            this.goToMainPanelButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.goToMainPanelButton.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Bold);
+            this.goToMainPanelButton.ForeColor = System.Drawing.Color.DarkRed;
+            this.goToMainPanelButton.Location = new System.Drawing.Point(0, 0);
+            this.goToMainPanelButton.Name = "goToMainPanelButton";
+            this.goToMainPanelButton.Size = new System.Drawing.Size(100, 30);
+            this.goToMainPanelButton.TabIndex = 19;
+            this.goToMainPanelButton.Text = "Игра";
+            this.goToMainPanelButton.UseVisualStyleBackColor = true;
+            this.goToMainPanelButton.Click += new System.EventHandler(this.GoToMainPanelClick);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(774, 463);
+            this.ClientSize = new System.Drawing.Size(774, 511);
+            this.Controls.Add(this.goToMainPanelButton);
+            this.Controls.Add(this.goToOptionsButton);
             this.Controls.Add(this.panel1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(790, 502);
-            this.MinimumSize = new System.Drawing.Size(790, 502);
+            this.MaximumSize = new System.Drawing.Size(790, 550);
+            this.MinimumSize = new System.Drawing.Size(790, 550);
             this.Name = "Form1";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "2048 by Hemok98";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1Closed);
             this.panel1.ResumeLayout(false);
@@ -309,8 +325,9 @@ namespace _2048_by_Hemok98
         private System.Windows.Forms.Label deletePriceDisplay;
         private System.Windows.Forms.Label backPriceDisplay;
         private System.Windows.Forms.Button backButton;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button goToOptionsButton;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button goToMainPanelButton;
     }
 }
 

@@ -43,12 +43,6 @@ namespace _2048_by_Hemok98
 
         private Skills activatedSkill;
 
-        public void SetCellsCount()
-        {
-            //временно
-            
-        }
-
         public void RestartGame(ref int x, ref int y)
         {
             this.cellsContainer = new Cells[this.cellsCount, this.cellsCount];
@@ -353,6 +347,15 @@ namespace _2048_by_Hemok98
         {
             return this.record;
         }
+
+        public void SetRecord(int record)
+        {
+            this.record = record;
+            Properties.Settings.Default.saveRecord = record;
+            Properties.Settings.Default.Save();
+
+        }
+
     }
      
 

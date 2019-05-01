@@ -17,11 +17,16 @@ namespace _2048_by_Hemok98
 
         private bool canUseKeys = true;
 
+        private int displayCellsCount = 4;
+
+        private int selectedPanel = 1;
+
         public Form1()
         {
-            InitializeComponent();
-            MyInitializeComponent();
-            InitializeOptionsPanel();
+            this.InitializeComponent();
+            this.MyInitializeComponent();
+            this.InitializeOptionsPanel();
+            this.SetDisplayOption();
 
             int x = 0, y = 0;
             this.game.RestartGame(ref x, ref y);
@@ -147,13 +152,17 @@ namespace _2048_by_Hemok98
             this.showNew = !this.showNew;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void GoToOptionsClick(object sender, EventArgs e)
         {
             //this.panel1.Visible = false;
             //newForm.Show();
             //newForm.StartUsingThisForm();
+            if (selectedPanel == 2) return;
+
+            this.SetDisplayOption();
             this.panel2.Visible = true;
-            this.panel1.Visible = false;
+            if (this.selectedPanel == 1) this.panel1.Visible = false;
+            this.selectedPanel = 2;
         }
 
         private void KeyPressed (object sender, KeyEventArgs e)
@@ -205,6 +214,15 @@ namespace _2048_by_Hemok98
         {
             Properties.Settings.Default.saveRecord = this.game.GetRecord();
             Properties.Settings.Default.Save();
+        }
+
+        private void GoToMainPanelClick(object sender, EventArgs e)
+        {
+            if (selectedPanel == 1) return;
+            this.panel1.Visible = true;
+
+            if (this.selectedPanel == 2) this.panel2.Visible = false;
+            this.selectedPanel = 1;
         }
     }
 }

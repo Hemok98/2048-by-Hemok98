@@ -34,5 +34,113 @@ namespace _2048_by_Hemok98.Properties {
                 this["saveRecord"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string saveString1 {
+            get {
+                return ((string)(this["saveString1"]));
+            }
+            set {
+                this["saveString1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string saveString2 {
+            get {
+                return ((string)(this["saveString2"]));
+            }
+            set {
+                this["saveString2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string saveString3 {
+            get {
+                return ((string)(this["saveString3"]));
+            }
+            set {
+                this["saveString3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string saveString4 {
+            get {
+                return ((string)(this["saveString4"]));
+            }
+            set {
+                this["saveString4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string saveString5 {
+            get {
+                return ((string)(this["saveString5"]));
+            }
+            set {
+                this["saveString5"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string saveString6 {
+            get {
+                return ((string)(this["saveString6"]));
+            }
+            set {
+                this["saveString6"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string saveString7 {
+            get {
+                return ((string)(this["saveString7"]));
+            }
+            set {
+                this["saveString7"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string saveString8 {
+            get {
+                return ((string)(this["saveString8"]));
+            }
+            set {
+                this["saveString8"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string saveString9 {
+            get {
+                return ((string)(this["saveString9"]));
+            }
+            set {
+                this["saveString9"] = value;
+            }
+        }
     }
 }

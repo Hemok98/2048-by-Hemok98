@@ -26,7 +26,19 @@ namespace _2048_by_Hemok98
             this.InitializeComponent();
             this.MyInitializeComponent();
             this.InitializeOptionsPanel();
+            this.IntitializeSavesPanel();
             this.SetDisplayOption();
+            IntitializeLoadPanel();
+
+            /*Properties.Settings.Default.saveString1 = "";
+            Properties.Settings.Default.saveString2 = "";
+            Properties.Settings.Default.saveString3 = "";
+            Properties.Settings.Default.saveString4 = "";
+            Properties.Settings.Default.saveString5 = "";
+            Properties.Settings.Default.saveString6 = "";
+            Properties.Settings.Default.saveString7 = "";
+            Properties.Settings.Default.saveString8 = "";
+            Properties.Settings.Default.saveString9 = ""; */
 
             int x = 0, y = 0;
             this.game.RestartGame(ref x, ref y);
@@ -35,11 +47,6 @@ namespace _2048_by_Hemok98
             {
                 ShowNewCell(x, y);
             }
-
-            //string test = "";
-            
-            //textBox1.Text = test;
-
         }
 
         private Game game = new Game();
@@ -94,6 +101,7 @@ namespace _2048_by_Hemok98
                 this.game.Output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay,this.backPriceDisplay);
                 ShowNewCell(x, y);
             }
+            
             
         }
 
@@ -154,15 +162,15 @@ namespace _2048_by_Hemok98
 
         private void GoToOptionsClick(object sender, EventArgs e)
         {
-            //this.panel1.Visible = false;
-            //newForm.Show();
-            //newForm.StartUsingThisForm();
             if (selectedPanel == 2) return;
 
             this.SetDisplayOption();
-            this.panel2.Visible = true;
             if (this.selectedPanel == 1) this.panel1.Visible = false;
+            if (this.selectedPanel == 3) this.panel3.Visible = false;
+            if (this.selectedPanel == 4) this.panel4.Visible = false;
+
             this.selectedPanel = 2;
+            this.panel2.Visible = true;
         }
 
         private void KeyPressed (object sender, KeyEventArgs e)
@@ -219,10 +227,42 @@ namespace _2048_by_Hemok98
         private void GoToMainPanelClick(object sender, EventArgs e)
         {
             if (selectedPanel == 1) return;
-            this.panel1.Visible = true;
-
+            
+            if (this.selectedPanel == 4) this.panel4.Visible = false;
+            if (this.selectedPanel == 3) this.panel3.Visible = false;
             if (this.selectedPanel == 2) this.panel2.Visible = false;
+
             this.selectedPanel = 1;
+            this.panel1.Visible = true;      
+        }
+
+        private void GoToSavePanelClick(object sender, EventArgs e)
+        {
+            if (selectedPanel == 3) return;
+           
+            this.selectedSave = 0;
+            this.ClearForUsingSaves();
+            
+            if (this.selectedPanel == 4) this.panel4.Visible = false;
+            if (this.selectedPanel == 2) this.panel2.Visible = false;
+            if (this.selectedPanel == 1) this.panel1.Visible = false;
+
+            this.panel3.Visible = true;
+            this.selectedPanel = 3;
+        }
+
+        private void GoToLoadPanelClick(object sender, EventArgs e)
+        {
+            if (selectedPanel == 4) return;
+            
+            this.ClearForUsingLoad();
+            
+            if (this.selectedPanel == 3) this.panel3.Visible = false;
+            if (this.selectedPanel == 2) this.panel2.Visible = false;
+            if (this.selectedPanel == 1) this.panel1.Visible = false;
+
+            this.selectedPanel = 4;
+            this.panel4.Visible = true;
         }
     }
 }

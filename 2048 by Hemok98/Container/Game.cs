@@ -39,8 +39,6 @@ namespace _2048_by_Hemok98
 
         public static int MAXCELLS = 6;
 
-        //private int skillX2Price = 1250;
-
         private Skills activatedSkill;
 
         public void RestartGame(ref int x, ref int y)
@@ -174,8 +172,6 @@ namespace _2048_by_Hemok98
             }
         }
 
-        //object.skills.x2()
-
         public void AddRandomCell(ref int x, ref int y)
         {
             int freeCellsCount = 0; //хранит кол-во свободных ячеек
@@ -210,32 +206,32 @@ namespace _2048_by_Hemok98
             stepsDisplay.Text = "Ход: " + this.steps.ToString();
             scoreDisplay.Text = "Счёт: " + this.score.ToString();
             recordDisplay.Text = "Рекорд: " + this.record.ToString();
-            x2PriceDisplay.Text = "Цена: " + this.skillX2Price.ToString();
-            deletePriceDisplay.Text = "Цена: " + this.skillDeletePrice.ToString();
-            backPriceDisplay.Text = "Цена: " + this.skillBackPrice.ToString();
+            x2PriceDisplay.Text = this.skillX2Price.ToString();
+            deletePriceDisplay.Text = this.skillDeletePrice.ToString();
+            backPriceDisplay.Text =  this.skillBackPrice.ToString();
 
             for (int i = 0; i < this.cellsCount; i++)
             {
                 for (int j = 0; j < this.cellsCount; j++)
                 {
-                    displayMassive[j, i].Text = this.cellsContainer[i, j].num.ToString();
-                    if (displayMassive[j, i].Text == "0") displayMassive[j, i].Text = "";
+                    displayMassive[i, j].Text = this.cellsContainer[i, j].num.ToString();
+                    if (displayMassive[i, j].Text == "0") displayMassive[i, j].Text = "";
                     
-                    if (this.cellsContainer[i, j].num == 0) displayMassive[j, i].BackColor = System.Drawing.Color.WhiteSmoke;
-                    if (this.cellsContainer[i, j].num == 2) displayMassive[j, i].BackColor = System.Drawing.Color.Gainsboro;
-                    if (this.cellsContainer[i, j].num == 4) displayMassive[j, i].BackColor = System.Drawing.Color.Silver;
-                    if (this.cellsContainer[i, j].num == 8) displayMassive[j, i].BackColor = System.Drawing.Color.PeachPuff;
-                    if (this.cellsContainer[i, j].num == 16) displayMassive[j, i].BackColor = System.Drawing.Color.DarkSalmon;
-                    if (this.cellsContainer[i, j].num == 32) displayMassive[j, i].BackColor = System.Drawing.Color.Tomato;
-                    if (this.cellsContainer[i, j].num == 64) displayMassive[j, i].BackColor = System.Drawing.Color.OrangeRed;
-                    if (this.cellsContainer[i, j].num == 128) displayMassive[j, i].BackColor = System.Drawing.Color.LemonChiffon;
-                    if (this.cellsContainer[i, j].num == 256) displayMassive[j, i].BackColor = System.Drawing.Color.Khaki;
-                    if (this.cellsContainer[i, j].num == 512) displayMassive[j, i].BackColor = System.Drawing.Color.Yellow;
-                    if (this.cellsContainer[i, j].num == 1024) displayMassive[j, i].BackColor = System.Drawing.Color.Gold;
-                    if (this.cellsContainer[i, j].num == 2048) displayMassive[j, i].BackColor = System.Drawing.Color.Goldenrod;
-                    if (this.cellsContainer[i, j].num == 4096) displayMassive[j, i].BackColor = System.Drawing.Color.Salmon;
-                    if (this.cellsContainer[i, j].num == 8192) displayMassive[j, i].BackColor = System.Drawing.Color.IndianRed;
-                    if (this.cellsContainer[i, j].num > 16384) displayMassive[j, i].BackColor = System.Drawing.Color.Brown;
+                    if (this.cellsContainer[i, j].num == 0) displayMassive[i, j].BackColor = System.Drawing.Color.WhiteSmoke;
+                    if (this.cellsContainer[i, j].num == 2) displayMassive[i, j].BackColor = System.Drawing.Color.Gainsboro;
+                    if (this.cellsContainer[i, j].num == 4) displayMassive[i, j].BackColor = System.Drawing.Color.Silver;
+                    if (this.cellsContainer[i, j].num == 8) displayMassive[i, j].BackColor = System.Drawing.Color.PeachPuff;
+                    if (this.cellsContainer[i, j].num == 16) displayMassive[i, j].BackColor = System.Drawing.Color.DarkSalmon;
+                    if (this.cellsContainer[i, j].num == 32) displayMassive[i, j].BackColor = System.Drawing.Color.Tomato;
+                    if (this.cellsContainer[i, j].num == 64) displayMassive[i, j].BackColor = System.Drawing.Color.OrangeRed;
+                    if (this.cellsContainer[i, j].num == 128) displayMassive[i, j].BackColor = System.Drawing.Color.LemonChiffon;
+                    if (this.cellsContainer[i, j].num == 256) displayMassive[i, j].BackColor = System.Drawing.Color.Khaki;
+                    if (this.cellsContainer[i, j].num == 512) displayMassive[i, j].BackColor = System.Drawing.Color.Yellow;
+                    if (this.cellsContainer[i, j].num == 1024) displayMassive[i, j].BackColor = System.Drawing.Color.Gold;
+                    if (this.cellsContainer[i, j].num == 2048) displayMassive[i, j].BackColor = System.Drawing.Color.Goldenrod;
+                    if (this.cellsContainer[i, j].num == 4096) displayMassive[i, j].BackColor = System.Drawing.Color.Salmon;
+                    if (this.cellsContainer[i, j].num == 8192) displayMassive[i, j].BackColor = System.Drawing.Color.IndianRed;
+                    if (this.cellsContainer[i, j].num > 16384) displayMassive[i, j].BackColor = System.Drawing.Color.Brown;
 
                 }
             }
@@ -356,8 +352,148 @@ namespace _2048_by_Hemok98
 
         }
 
-    }
-     
+        public void SaveGame(int saveNumber)
+        {
+            if (saveNumber == 0) return;
+            string final = "";
+
+            final += this.cellsCount.ToString() + ";";
+            for (int i = 0; i < this.cellsCount; i++)
+            {
+                for (int j = 0; j < this.cellsCount; j++)
+                {
+                    final += this.cellsContainer[i, j].num.ToString() + ";";
+                    final += this.copyCellsContainer[i, j].num.ToString() + ";";
+                }
+            }
+
+            final += this.steps.ToString() + ";";
+            final += this.score.ToString() + ";";
+            final += this.canUseSkill.ToString() + ";";
+            final += this.activatedSkill + ";";
+            final += this.skillActivated.ToString() + ";";
+
+            final += this.skillBackPrice.ToString() + ";";
+            final += this.skillDeletePrice.ToString() + ";";
+            final += this.skillX2Price.ToString() + ";";
+            
+            switch (saveNumber)
+            {
+                case 1 : Properties.Settings.Default.saveString1 = final;
+                    break;
+                case 2 : Properties.Settings.Default.saveString2 = final;
+                    break;
+                case 3 : Properties.Settings.Default.saveString3 = final;
+                    break;
+                case 4 : Properties.Settings.Default.saveString4 = final;
+                    break;
+                case 5 : Properties.Settings.Default.saveString5 = final;
+                    break;
+                case 6 : Properties.Settings.Default.saveString6 = final;
+                    break;
+                case 7 : Properties.Settings.Default.saveString7 = final;
+                    break;
+                case 8 : Properties.Settings.Default.saveString8 = final;
+                    break;
+                case 9 : Properties.Settings.Default.saveString9 = final;
+                    break;
+            }
+
+            Properties.Settings.Default.Save();
+        }
+
+        public int LoadGame(int loadNumber)
+        {
+            string str = "";
+            switch (loadNumber)
+            {
+                case 1 : str = Properties.Settings.Default.saveString1;
+                break;
+
+                case 2 : str = Properties.Settings.Default.saveString2;
+                    break;
+
+                case 3 : str = Properties.Settings.Default.saveString3;
+                    break;
+
+                case 4 : str = Properties.Settings.Default.saveString4;
+                break;
+
+                case 5 : str = Properties.Settings.Default.saveString5;
+                break;
+
+                case 6 : str = Properties.Settings.Default.saveString6;
+                break;
+
+                case 7 : str = Properties.Settings.Default.saveString7;
+                break;
+
+                case 8 : str = Properties.Settings.Default.saveString8;
+                break;
+
+                case 9 : str = Properties.Settings.Default.saveString9;
+                break;
+            }
+
+            if (str == "") return 0;
+
+            string parse = "";
+            parse = str.Substring(0, str.IndexOf(";"));
+            str = str.Substring(str.IndexOf(";") + 1);
+            this.cellsCount = int.Parse(parse);
+            this.cellsContainer = new Cells[this.cellsCount, this.cellsCount];
+            this.copyCellsContainer = new Cells[this.cellsCount, this.cellsCount];
+
+            for (int i = 0; i < this.cellsCount; i++)
+            {
+                for (int j = 0; j < this.cellsCount; j++)
+                {
+                    parse = str.Substring(0, str.IndexOf(";"));
+                    str = str.Substring(str.IndexOf(";") + 1);
+                    this.cellsContainer[i, j] = new Cells(int.Parse(parse));
+
+                    parse = str.Substring(0, str.IndexOf(";"));
+                    str = str.Substring(str.IndexOf(";") + 1);
+                    this.copyCellsContainer[i, j] = new Cells(int.Parse(parse));
+                }
+            }
+
+            parse = str.Substring(0, str.IndexOf(";"));
+            str = str.Substring(str.IndexOf(";") + 1);
+            this.steps = int.Parse(parse);
+
+            parse = str.Substring(0, str.IndexOf(";"));
+            str = str.Substring(str.IndexOf(";") + 1);
+            this.record = int.Parse(parse);
+
+            parse = str.Substring(0, str.IndexOf(";"));
+            str = str.Substring(str.IndexOf(";") + 1);
+            this.canUseSkill = bool.Parse(parse);
+
+            parse = str.Substring(0, str.IndexOf(";"));
+            str = str.Substring(str.IndexOf(";") + 1);
+            this.activatedSkill = (Skills)Enum.Parse(typeof(Skills), parse);
+
+            parse = str.Substring(0, str.IndexOf(";"));
+            str = str.Substring(str.IndexOf(";") + 1);
+            this.skillActivated = bool.Parse(parse);
+
+            parse = str.Substring(0, str.IndexOf(";"));
+            str = str.Substring(str.IndexOf(";") + 1);
+            this.skillBackPrice = int.Parse(parse);
+
+            parse = str.Substring(0, str.IndexOf(";"));
+            str = str.Substring(str.IndexOf(";") + 1);
+            this.skillDeletePrice = int.Parse(parse);
+
+            parse = str.Substring(0, str.IndexOf(";"));
+            str = str.Substring(str.IndexOf(";") + 1);
+            this.skillX2Price = int.Parse(parse);
+
+            return this.cellsCount;
+        }
+
+    }  
 
     enum Skills
     {

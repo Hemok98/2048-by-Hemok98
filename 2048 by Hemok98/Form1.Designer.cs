@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace _2048_by_Hemok98
 {
@@ -22,7 +23,37 @@ namespace _2048_by_Hemok98
             base.Dispose(disposing);
         }
 
-        
+        private System.Windows.Forms.Panel[] pages = new System.Windows.Forms.Panel[10];
+
+        /*private void PagesInitialize()
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                this.pages[i] = new System.Windows.Forms.Panel();
+                this.pages[i].Visible = false;
+                this.pages[i].Location = new System.Drawing.Point(0, 30);
+                this.pages[i].Name = "panel" + i.ToString();
+                this.pages[i].Size = new System.Drawing.Size(774, 480);
+                this.pages[i].TabIndex = 18;
+                this.Controls.Add(this.pages[i]);
+            }
+
+            //MAIN PAGE
+            this.pages[0].Controls.Add(this.backPriceDisplay);
+            this.pages[0].Controls.Add(this.backButton);
+            this.pages[0].Controls.Add(this.deletePriceDisplay);
+            this.pages[0].Controls.Add(this.x2PriceDisplay);
+            this.pages[0].Controls.Add(this.deleteButton);
+            this.pages[0].Controls.Add(this.x2Button);
+            this.pages[0].Controls.Add(this.restartButton);
+            this.pages[0].Controls.Add(this.recordDisplay);
+            this.pages[0].Controls.Add(this.scoreDisplay);
+            this.pages[0].Controls.Add(this.stepDisplay);
+            this.pages[0].Controls.Add(this.downButton);
+            this.pages[0].Controls.Add(this.upButton);
+            this.pages[0].Controls.Add(this.leftButton);
+            this.pages[0].Controls.Add(this.rightButton);
+        } */
 
         private System.Windows.Forms.Button[,] cellsDispay = new System.Windows.Forms.Button[6, 6];
 
@@ -38,7 +69,7 @@ namespace _2048_by_Hemok98
                 {
                     this.cellsDispay[i, j] = new System.Windows.Forms.Button();
                     //this.SuspendLayout();
-                    this.cellsDispay[i, j].Location = new System.Drawing.Point(xStart + i*(size + indent), yStart +  j*(size + indent));
+                    this.cellsDispay[i, j].Location = new System.Drawing.Point(xStart + j*(size + indent), yStart +  i*(size + indent));
                     this.cellsDispay[i,j].Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
                     this.cellsDispay[i, j].Name = i.ToString() + j.ToString();
                     this.cellsDispay[i, j].Size = new System.Drawing.Size(size, size);
@@ -53,7 +84,15 @@ namespace _2048_by_Hemok98
 
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyPressed);
             this.KeyPreview = true;
+
+            this.components = new System.ComponentModel.Container();
+            this.toolTipsShower = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipsShower.SetToolTip(this.backButton, "Вернуть на ход назад");
+            this.toolTipsShower.SetToolTip(this.deleteButton, "Обнулить ячейку");
+            this.toolTipsShower.SetToolTip(this.x2Button, "Удвоить ячейку");
         }
+
+        private ToolTip toolTipsShower;
 
         #region Код, автоматически созданный конструктором форм Windows
 
@@ -75,12 +114,14 @@ namespace _2048_by_Hemok98
             this.x2PriceDisplay = new System.Windows.Forms.Label();
             this.deletePriceDisplay = new System.Windows.Forms.Label();
             this.backPriceDisplay = new System.Windows.Forms.Label();
-            this.backButton = new System.Windows.Forms.Button();
-            this.DeleteButton = new System.Windows.Forms.Button();
-            this.x2Button = new System.Windows.Forms.Button();
             this.goToOptionsButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.backButton = new System.Windows.Forms.Button();
+            this.deleteButton = new System.Windows.Forms.Button();
+            this.x2Button = new System.Windows.Forms.Button();
             this.goToMainPanelButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -175,69 +216,33 @@ namespace _2048_by_Hemok98
             // 
             // x2PriceDisplay
             // 
-            this.x2PriceDisplay.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.x2PriceDisplay.Location = new System.Drawing.Point(476, 185);
+            this.x2PriceDisplay.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Bold);
+            this.x2PriceDisplay.Location = new System.Drawing.Point(420, 253);
             this.x2PriceDisplay.Name = "x2PriceDisplay";
-            this.x2PriceDisplay.Size = new System.Drawing.Size(171, 48);
+            this.x2PriceDisplay.Size = new System.Drawing.Size(65, 20);
             this.x2PriceDisplay.TabIndex = 12;
-            this.x2PriceDisplay.Text = "Цена:";
-            this.x2PriceDisplay.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.x2PriceDisplay.Text = "Цена";
+            this.x2PriceDisplay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // deletePriceDisplay
             // 
             this.deletePriceDisplay.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.deletePriceDisplay.Location = new System.Drawing.Point(476, 237);
+            this.deletePriceDisplay.Location = new System.Drawing.Point(492, 253);
             this.deletePriceDisplay.Name = "deletePriceDisplay";
-            this.deletePriceDisplay.Size = new System.Drawing.Size(171, 48);
+            this.deletePriceDisplay.Size = new System.Drawing.Size(65, 20);
             this.deletePriceDisplay.TabIndex = 13;
-            this.deletePriceDisplay.Text = "Цена:";
-            this.deletePriceDisplay.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.deletePriceDisplay.Text = "Цена";
+            this.deletePriceDisplay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // backPriceDisplay
             // 
             this.backPriceDisplay.Font = new System.Drawing.Font("Comic Sans MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.backPriceDisplay.Location = new System.Drawing.Point(476, 293);
+            this.backPriceDisplay.Location = new System.Drawing.Point(420, 344);
             this.backPriceDisplay.Name = "backPriceDisplay";
-            this.backPriceDisplay.Size = new System.Drawing.Size(171, 48);
+            this.backPriceDisplay.Size = new System.Drawing.Size(65, 20);
             this.backPriceDisplay.TabIndex = 15;
-            this.backPriceDisplay.Text = "Цена:";
-            this.backPriceDisplay.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // backButton
-            // 
-            this.backButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.backButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("backButton.BackgroundImage")));
-            this.backButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.backButton.Location = new System.Drawing.Point(420, 293);
-            this.backButton.Name = "backButton";
-            this.backButton.Size = new System.Drawing.Size(48, 48);
-            this.backButton.TabIndex = 14;
-            this.backButton.UseVisualStyleBackColor = false;
-            this.backButton.Click += new System.EventHandler(this.BackButtonClick);
-            // 
-            // DeleteButton
-            // 
-            this.DeleteButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.DeleteButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("DeleteButton.BackgroundImage")));
-            this.DeleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.DeleteButton.Location = new System.Drawing.Point(420, 239);
-            this.DeleteButton.Name = "DeleteButton";
-            this.DeleteButton.Size = new System.Drawing.Size(48, 48);
-            this.DeleteButton.TabIndex = 11;
-            this.DeleteButton.UseVisualStyleBackColor = false;
-            this.DeleteButton.Click += new System.EventHandler(this.DeleteButtonClick);
-            // 
-            // x2Button
-            // 
-            this.x2Button.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.x2Button.BackgroundImage = global::_2048_by_Hemok98.Properties.Resources.x2PNG;
-            this.x2Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.x2Button.Location = new System.Drawing.Point(420, 185);
-            this.x2Button.Name = "x2Button";
-            this.x2Button.Size = new System.Drawing.Size(48, 48);
-            this.x2Button.TabIndex = 10;
-            this.x2Button.UseVisualStyleBackColor = false;
-            this.x2Button.Click += new System.EventHandler(this.X2ButtonClick);
+            this.backPriceDisplay.Text = "Цена";
+            this.backPriceDisplay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // goToOptionsButton
             // 
@@ -259,7 +264,7 @@ namespace _2048_by_Hemok98
             this.panel1.Controls.Add(this.backButton);
             this.panel1.Controls.Add(this.deletePriceDisplay);
             this.panel1.Controls.Add(this.x2PriceDisplay);
-            this.panel1.Controls.Add(this.DeleteButton);
+            this.panel1.Controls.Add(this.deleteButton);
             this.panel1.Controls.Add(this.x2Button);
             this.panel1.Controls.Add(this.restartButton);
             this.panel1.Controls.Add(this.recordDisplay);
@@ -273,6 +278,42 @@ namespace _2048_by_Hemok98
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(774, 480);
             this.panel1.TabIndex = 18;
+            // 
+            // backButton
+            // 
+            this.backButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.backButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("backButton.BackgroundImage")));
+            this.backButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.backButton.Location = new System.Drawing.Point(420, 276);
+            this.backButton.Name = "backButton";
+            this.backButton.Size = new System.Drawing.Size(65, 65);
+            this.backButton.TabIndex = 14;
+            this.backButton.UseVisualStyleBackColor = false;
+            this.backButton.Click += new System.EventHandler(this.BackButtonClick);
+            // 
+            // deleteButton
+            // 
+            this.deleteButton.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.deleteButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("deleteButton.BackgroundImage")));
+            this.deleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.deleteButton.Location = new System.Drawing.Point(492, 185);
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Size = new System.Drawing.Size(65, 65);
+            this.deleteButton.TabIndex = 11;
+            this.deleteButton.UseVisualStyleBackColor = false;
+            this.deleteButton.Click += new System.EventHandler(this.DeleteButtonClick);
+            // 
+            // x2Button
+            // 
+            this.x2Button.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.x2Button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("x2Button.BackgroundImage")));
+            this.x2Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.x2Button.Location = new System.Drawing.Point(420, 185);
+            this.x2Button.Name = "x2Button";
+            this.x2Button.Size = new System.Drawing.Size(65, 65);
+            this.x2Button.TabIndex = 10;
+            this.x2Button.UseVisualStyleBackColor = false;
+            this.x2Button.Click += new System.EventHandler(this.X2ButtonClick);
             // 
             // goToMainPanelButton
             // 
@@ -288,12 +329,42 @@ namespace _2048_by_Hemok98
             this.goToMainPanelButton.UseVisualStyleBackColor = true;
             this.goToMainPanelButton.Click += new System.EventHandler(this.GoToMainPanelClick);
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.LightGray;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Bold);
+            this.button1.ForeColor = System.Drawing.Color.DarkRed;
+            this.button1.Location = new System.Drawing.Point(200, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(100, 30);
+            this.button1.TabIndex = 20;
+            this.button1.Text = "Сохранить";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.GoToSavePanelClick);
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.LightGray;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button2.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Bold);
+            this.button2.ForeColor = System.Drawing.Color.DarkRed;
+            this.button2.Location = new System.Drawing.Point(300, 0);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(100, 30);
+            this.button2.TabIndex = 21;
+            this.button2.Text = "Загрузить";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.GoToLoadPanelClick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(774, 511);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.goToMainPanelButton);
             this.Controls.Add(this.goToOptionsButton);
             this.Controls.Add(this.panel1);
@@ -320,7 +391,7 @@ namespace _2048_by_Hemok98
         private System.Windows.Forms.Label recordDisplay;
         private System.Windows.Forms.Button restartButton;
         private System.Windows.Forms.Button x2Button;
-        private System.Windows.Forms.Button DeleteButton;
+        private System.Windows.Forms.Button deleteButton;
         private System.Windows.Forms.Label x2PriceDisplay;
         private System.Windows.Forms.Label deletePriceDisplay;
         private System.Windows.Forms.Label backPriceDisplay;
@@ -328,6 +399,8 @@ namespace _2048_by_Hemok98
         private System.Windows.Forms.Button goToOptionsButton;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button goToMainPanelButton;
+        private Button button1;
+        private Button button2;
     }
 }
 

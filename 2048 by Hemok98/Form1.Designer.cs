@@ -55,7 +55,7 @@ namespace _2048_by_Hemok98
             this.pages[0].Controls.Add(this.rightButton);
         } */
 
-        private System.Windows.Forms.Button[,] cellsDispay = new System.Windows.Forms.Button[6, 6];
+        private TButton[,] cellsDispay = new TButton[6, 6];
 
         private void MyInitializeComponent()
         {
@@ -67,7 +67,7 @@ namespace _2048_by_Hemok98
             {
                 for (int j = 0; j < Game.MAXCELLS; j++)
                 {
-                    this.cellsDispay[i, j] = new System.Windows.Forms.Button();
+                    this.cellsDispay[i, j] = new TButton();
                     //this.SuspendLayout();
                     this.cellsDispay[i, j].Location = new System.Drawing.Point(xStart + j*(size + indent), yStart +  i*(size + indent));
                     this.cellsDispay[i,j].Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));

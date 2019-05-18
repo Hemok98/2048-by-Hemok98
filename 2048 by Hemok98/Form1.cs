@@ -30,7 +30,8 @@ namespace _2048_by_Hemok98
             this.SetDisplayOption();
             IntitializeLoadPanel();
 
-            /*Properties.Settings.Default.saveString1 = "";
+            /*
+            Properties.Settings.Default.saveString1 = "";
             Properties.Settings.Default.saveString2 = "";
             Properties.Settings.Default.saveString3 = "";
             Properties.Settings.Default.saveString4 = "";
@@ -38,15 +39,11 @@ namespace _2048_by_Hemok98
             Properties.Settings.Default.saveString6 = "";
             Properties.Settings.Default.saveString7 = "";
             Properties.Settings.Default.saveString8 = "";
-            Properties.Settings.Default.saveString9 = ""; */
+            Properties.Settings.Default.saveString9 = "";
+            */
 
-            int x = 0, y = 0;
-            this.game.RestartGame(ref x, ref y);
+            this.game.RestartGame();
             this.game.Output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay,this.backPriceDisplay);
-            if ( x != -1)
-            {
-                ShowNewCell(x, y);
-            }
         }
 
         private Game game = new Game();
@@ -94,20 +91,13 @@ namespace _2048_by_Hemok98
 
         private void RestartButtonClick(object sender, EventArgs e)
         {
-            int x = -1, y = -1;
-            this.game.RestartGame(ref x, ref y);
-            if (x != -1)
-            {
-                this.game.Output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay,this.backPriceDisplay);
-                ShowNewCell(x, y);
-            }
-            
-            
+            this.game.RestartGame();
+            this.game.Output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay, this.backPriceDisplay);
         }
 
         private async void CellsDisplayClick(object sender, EventArgs e)
         {
-            Button cell = (Button)sender;
+            TButton cell = (TButton)sender;
             int indexX = int.Parse(cell.Name[0] + "");
             int indexY = int.Parse(cell.Name[1] + "");
             
@@ -122,15 +112,12 @@ namespace _2048_by_Hemok98
             }
         }
 
-        private void ChangeButtonColor(Button cell, System.Drawing.Color color)
+        private void ChangeButtonColor(TButton cell, System.Drawing.Color color)
         {
-            System.Drawing.Color first = new System.Drawing.Color();
-            first = cell.BackColor;
-
             cell.BackColor = color;
             Thread.Sleep(200);
             //cell.BackColor = System.Drawing.Color.WhiteSmoke;
-            cell.BackColor = first;
+            cell.BackColor = cell.mainColor;
         }
 
         private async void ShowNewCell(int x, int y)

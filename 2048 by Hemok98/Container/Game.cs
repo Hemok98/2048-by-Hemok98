@@ -41,7 +41,7 @@ namespace _2048_by_Hemok98
 
         private Skills activatedSkill;
 
-        public void RestartGame(ref int x, ref int y)
+        public void RestartGame()
         {
             this.cellsContainer = new Cells[this.cellsCount, this.cellsCount];
             this.copyCellsContainer = new Cells[this.cellsCount, this.cellsCount];
@@ -52,8 +52,9 @@ namespace _2048_by_Hemok98
                     this.cellsContainer[i, j] = new Cells(0);
                     this.copyCellsContainer[i, j] = new Cells(0);
                 }
-            x = -1;
-            y = -1;
+            int x = -1;
+            int y = -1;
+            this.AddRandomCell(ref x, ref y);
             this.AddRandomCell(ref x, ref y);
             this.steps = 0;
             this.score = 0;
@@ -201,7 +202,7 @@ namespace _2048_by_Hemok98
             this.cellsContainer[freeCells[rand, 0], freeCells[rand, 1]].num = 2;
         }
 
-        public void Output(Button[,] displayMassive, Label stepsDisplay, Label scoreDisplay, Label recordDisplay, Label x2PriceDisplay, Label deletePriceDisplay, Label backPriceDisplay)
+        public void Output(TButton[,] displayMassive, Label stepsDisplay, Label scoreDisplay, Label recordDisplay, Label x2PriceDisplay, Label deletePriceDisplay, Label backPriceDisplay)
         {
             stepsDisplay.Text = "Ход: " + this.steps.ToString();
             scoreDisplay.Text = "Счёт: " + this.score.ToString();
@@ -233,6 +234,7 @@ namespace _2048_by_Hemok98
                     if (this.cellsContainer[i, j].num == 8192) displayMassive[i, j].BackColor = System.Drawing.Color.IndianRed;
                     if (this.cellsContainer[i, j].num > 16384) displayMassive[i, j].BackColor = System.Drawing.Color.Brown;
 
+                    displayMassive[i, j].mainColor = displayMassive[i, j].BackColor;
                 }
             }
             

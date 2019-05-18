@@ -43,13 +43,8 @@ namespace _2048_by_Hemok98
                 this.game.SetRecord(0);
             }
 
-            int x = -1, y = -1;
-            if (this.cellsCountTrackBar.Value != this.displayCellsCount) this.game.RestartGame(ref x, ref y);
+            if (this.cellsCountTrackBar.Value != this.displayCellsCount) this.game.RestartGame();
             this.displayCellsCount = this.cellsCountTrackBar.Value;
-            if (x != -1)
-            {
-                ShowNewCell(x, y);
-            }
 
             this.game.Output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay, this.backPriceDisplay);
             MessageBox.Show("Настройки успешно применены", "2048");
@@ -66,7 +61,7 @@ namespace _2048_by_Hemok98
             {
                 for (int j = 0; j < Game.MAXCELLS; j++)
                 {
-                    this.cellsDispay[i, j].Location = new System.Drawing.Point(xStart + i * (size + indent), yStart + j * (size + indent));
+                    this.cellsDispay[i, j].Location = new System.Drawing.Point(xStart + j * (size + indent), yStart + i * (size + indent));
                     this.cellsDispay[i, j].Size = new System.Drawing.Size(size, size);
                 }
             }

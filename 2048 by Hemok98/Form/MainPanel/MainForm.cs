@@ -11,7 +11,7 @@ using System.Threading;
 
 namespace _2048_by_Hemok98
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private bool showNew = false;
 
@@ -21,7 +21,7 @@ namespace _2048_by_Hemok98
 
         private int selectedPanel = 1;
 
-        public Form1()
+        public MainForm()
         {
             this.InitializeComponent();
             this.MyInitializeComponent();
@@ -44,6 +44,8 @@ namespace _2048_by_Hemok98
 
             this.game.RestartGame();
             this.game.Output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay,this.backPriceDisplay);
+
+
         }
 
         private Game game = new Game();

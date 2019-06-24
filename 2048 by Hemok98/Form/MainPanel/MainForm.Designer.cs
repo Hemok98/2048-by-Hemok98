@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace _2048_by_Hemok98
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -102,7 +102,7 @@ namespace _2048_by_Hemok98
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.rightButton = new System.Windows.Forms.Button();
             this.leftButton = new System.Windows.Forms.Button();
             this.upButton = new System.Windows.Forms.Button();

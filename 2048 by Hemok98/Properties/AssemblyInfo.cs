@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // набора атрибутов. Измените значения этих атрибутов, чтобы изменить сведения,
 // связанные со сборкой.
 [assembly: AssemblyTitle("2048 by Hemok98")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("The Best Game 2048 made by Hemok98")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Hemok98")]
 [assembly: AssemblyProduct("2048 by Hemok98")]
 [assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]

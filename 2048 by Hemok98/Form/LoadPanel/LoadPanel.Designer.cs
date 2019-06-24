@@ -3,45 +3,8 @@ using System.Windows.Forms;
 
 namespace _2048_by_Hemok98
 {
-    partial class Form1
+    partial class MainForm
     {
-        private int selectedLoad = 0;
-
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Button acceptLoadButton;
-        private Button[] loadButtons;
-
-        private void SelectLoadNumber(object sender, EventArgs e)
-        {
-            Button sended = (Button)sender;
-            if (this.selectedLoad != 0) this.loadButtons[this.selectedLoad - 1].BackColor = System.Drawing.Color.WhiteSmoke;
-            this.selectedLoad = int.Parse(sended.Name) + 1;
-            sended.BackColor = System.Drawing.Color.Gold;
-        }
-
-        private void AcceptLoadClick(object sender, EventArgs e)
-        {
-            
-            if (this.selectedLoad != 0)
-            {
-                this.loadButtons[this.selectedLoad - 1].BackColor = System.Drawing.Color.WhiteSmoke;
-                MessageBox.Show("Игра успешно загружена", "2048");
-                this.displayCellsCount = this.game.LoadGame(this.selectedLoad);
-                this.game.Output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay, this.backPriceDisplay);
-            }
-
-            else MessageBox.Show("Игра успешно ниоткуда не загружена", "2048");
-        }
-
-        private void ClearForUsingLoad()
-        {
-            this.selectedLoad = 0;
-            for (int i = 0; i < 9; i++)
-            {
-                this.loadButtons[i].BackColor = System.Drawing.Color.WhiteSmoke;
-            }
-        }
-
         private void IntitializeLoadPanel()
         {
             this.panel4 = new System.Windows.Forms.Panel();
@@ -54,7 +17,7 @@ namespace _2048_by_Hemok98
                 indent = 10;
             for (int i = 0; i < 9; i++)
             {
-                this.loadButtons[i] = new System.Windows.Forms.Button();
+                this.loadButtons[i] = new Button();
                 //this.SuspendLayout();
                 this.loadButtons[i].Location = new System.Drawing.Point(xStart + (i % 3) * (size + indent), yStart + (i / 3) * (size + indent));
                 this.loadButtons[i].Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));

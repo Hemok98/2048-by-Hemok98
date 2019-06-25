@@ -25,36 +25,6 @@ namespace _2048_by_Hemok98
 
         private System.Windows.Forms.Panel[] pages = new System.Windows.Forms.Panel[10];
 
-        /*private void PagesInitialize()
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                this.pages[i] = new System.Windows.Forms.Panel();
-                this.pages[i].Visible = false;
-                this.pages[i].Location = new System.Drawing.Point(0, 30);
-                this.pages[i].Name = "panel" + i.ToString();
-                this.pages[i].Size = new System.Drawing.Size(774, 480);
-                this.pages[i].TabIndex = 18;
-                this.Controls.Add(this.pages[i]);
-            }
-
-            //MAIN PAGE
-            this.pages[0].Controls.Add(this.backPriceDisplay);
-            this.pages[0].Controls.Add(this.backButton);
-            this.pages[0].Controls.Add(this.deletePriceDisplay);
-            this.pages[0].Controls.Add(this.x2PriceDisplay);
-            this.pages[0].Controls.Add(this.deleteButton);
-            this.pages[0].Controls.Add(this.x2Button);
-            this.pages[0].Controls.Add(this.restartButton);
-            this.pages[0].Controls.Add(this.recordDisplay);
-            this.pages[0].Controls.Add(this.scoreDisplay);
-            this.pages[0].Controls.Add(this.stepDisplay);
-            this.pages[0].Controls.Add(this.downButton);
-            this.pages[0].Controls.Add(this.upButton);
-            this.pages[0].Controls.Add(this.leftButton);
-            this.pages[0].Controls.Add(this.rightButton);
-        } */
-
         private TButton[,] cellsDispay = new TButton[6, 6];
 
         private void MyInitializeComponent()

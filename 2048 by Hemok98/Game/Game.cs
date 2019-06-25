@@ -9,39 +9,40 @@ namespace _2048_by_Hemok98
 {
     partial class Game
     {
-        private Cells[,] cellsContainer = new Cells[MAXCELLS, MAXCELLS];
+        private Cells[,] cellsContainer = new Cells[MAXCELLS, MAXCELLS]; //массив который хранит основное поле игры
 
-        private Cells[,] copyCellsContainer = new Cells[MAXCELLS, MAXCELLS];
+        private Cells[,] copyCellsContainer = new Cells[MAXCELLS, MAXCELLS]; //массив который хранит предыдущий ход(нужен для скила "ход назад")
+        //тип данных Cells описан в файле Cells.cs в этой же папке
 
-        public int cellsCount = 4;
+        public int cellsCount = 4; //хранит текущее кол-во ячеек
 
-        private bool canUseSkill = true;
+        private bool canUseSkill = true; //отвечает за то может ли игрок использовать скил, нужен для того чтобы игрок мог использовать скилы через ход
 
-        private bool skillActivated = false;
+        private bool skillActivated = false; //показывает был ли активирован скил, если да - то заставит пользователя выбрать нужную ячейку для совершения скила и будет блокировать исполнение других действий
 
-        private int startSkillX2Price = 1250;
+        private int startSkillX2Price = 1250; //т.к. каждое использование цена скилов растёт на 25%, хранит начальное значение цены для удвоения ячейки
 
-        private int startSkillDeletePrice = 1000;
+        private int startSkillDeletePrice = 1000; //аналогично предыдущему, только для обнуления ячейки
 
-        private int startSkillBackPrice = 1000;
+        private int startSkillBackPrice = 1000; //аналогично предыдущему, только для хода назад
 
-        private int skillX2Price = 0;
+        private int skillX2Price = 0; //хранит текущее значение цены скила удвоения ячейки
 
-        private int skillDeletePrice = 0;
+        private int skillDeletePrice = 0; //аналогично предыдущему для обнуления учейки
 
-        private int skillBackPrice = 0;
+        private int skillBackPrice = 0; //аналогично предыдущему для хода назад
+        
+        private int steps = 0; //счётчик ходов
 
-        private int steps = 0;
+        private int score = 0; //хранит текущий счёт
 
-        private int score = 0;
+        private int record = Properties.Settings.Default.saveRecord; //хранит рекорд, подсасывая его из настроек
 
-        private int record = Properties.Settings.Default.saveRecord;
+        public static int MAXCELLS = 6; //хранит максимальное колличество ячеек(возможно ненужна)
 
-        public static int MAXCELLS = 6;
+        private Skills activatedSkill; //если скил был активирован хранит имя активированного скила
 
-        private Skills activatedSkill;
-
-        public void RestartGame()
+        public void RestartGame() //перезапуск игры
         {
             this.cellsContainer = new Cells[this.cellsCount, this.cellsCount];
             this.copyCellsContainer = new Cells[this.cellsCount, this.cellsCount];
@@ -52,24 +53,30 @@ namespace _2048_by_Hemok98
                     this.cellsContainer[i, j] = new Cells(0);
                     this.copyCellsContainer[i, j] = new Cells(0);
                 }
+            //обнуляем массив поля
             int x = -1;
             int y = -1;
+            //будут хранить координаты зарандомленных ячеек, нужны чтоб просто передать что-то в функцию добавления новой ячейки, т.к. лень писать для неё перегрузку без параметров
+
             this.AddRandomCell(ref x, ref y);
             this.AddRandomCell(ref x, ref y);
-            this.steps = 0;
-            this.score = 0;
-            this.skillX2Price = this.startSkillX2Price;
-            this.skillDeletePrice = this.startSkillDeletePrice;
-            this.skillBackPrice = this.startSkillBackPrice;
-            this.skillActivated = false;
+            //рандомим ячейки и записываем в х и у их координаты
+
+            this.steps = 0; //обнуляем счётчик ходов
+            this.score = 0; //обнуляем счёт
+            this.skillX2Price = this.startSkillX2Price; //задаём стартовое значение цены для удвоения
+            this.skillDeletePrice = this.startSkillDeletePrice; //аналогично предыдущему для обнуления
+            this.skillBackPrice = this.startSkillBackPrice; //аналогично предыдущему для хода назад
+            this.skillActivated = false; //переводим в положение пока нельзя использовать скилы
 
         }
 
-        public void Move(Movement direction, ref int x, ref int y)
+        public void Move(Movement direction, ref int x, ref int y) //главная игровая механика движения ячеек взависимости от направления.
+        //сюда пересылаем направление и ссылки на координаты, куда запишим координаты новой сгенерированой ячейки(2)
         {   
-            if (skillActivated) return;
+            if (skillActivated) return; //если скил был активирован, то не исполняем
 
-            Cells[,] copyCellsContainer = new Cells[this.cellsCount, this.cellsCount];
+            Cells[,] copyCellsContainer = new Cells[this.cellsCount, this.cellsCount]; //создаём промежуточный массив и копируем в него текущий
             for (int i = 0; i < this.cellsCount; i++)
             {
                 for (int j = 0; j < this.cellsCount; j++)
@@ -78,10 +85,11 @@ namespace _2048_by_Hemok98
                 }
             }
 
-            int mainIndex = 0;
-            int vertical = 0;
-            int moves = 0;
-            int nowScore = 0;
+            int mainIndex = 0; //отвечает за направление движения при работе алгроритма
+            int vertical = 0; //отвечает за направление движения при работе алгроритма
+            int moves = 0; //считает кол-во каких либо действий при работе алгоритма, нужен для отслеживания холостого срабатывания, когда ничего не произошло
+            int nowScore = 0; //считает сколько нужно будет прибавить к текущему счёту по окончанию хода
+
             switch(direction)
             { 
                 case Movement.RIGHT: //movelogic
@@ -113,7 +121,7 @@ namespace _2048_by_Hemok98
                 }
             }
 
-            for (int repeatCount = 0; repeatCount < cellsCount; repeatCount++)
+            for (int repeatCount = 0; repeatCount < cellsCount; repeatCount++) //само движение, это сложно объяснить. Это тупо нужно понять либо принять
             {
                 for (int i = cellsCount - 2; i >= 0; i--)
                 {
@@ -155,22 +163,29 @@ namespace _2048_by_Hemok98
             for (int i = 0; i < this.cellsCount; i++)
                         for (int j = 0; j < this.cellsCount; j++)
                             this.cellsContainer[i, j].changed = false;
-            if (moves > 0)
+            //переводим поле изменения в состояние можно работать(своебразное зануление, нужно чтоб алгоритм корректно отработал на следующем ходу)
+
+            if (moves > 0) //проверяем сработал ли алгорит в холостую
             {   
 
-                this.AddRandomCell(ref x, ref y);
-                this.steps++;
-                this.score += nowScore;
-                if (this.score > this.record) this.record = this.score;
-                this.canUseSkill = true;
+                this.AddRandomCell(ref x, ref y); //добавляем новую ячейку
+                this.steps++; //увеличиваем шаги
+                this.score += nowScore; //увиличиваем счёт
+                if (this.score > this.record) this.record = this.score; //проверяем стал ли счёт больше рекорда
+                //вообще тут надо бы его сохранять в настройки на всякий так, что
+                //fix me
+
+                this.canUseSkill = true; //ход походили, скилы можно использовать
+
                 for (int i = 0; i < this.cellsCount; i++)
                 {
                     for (int j = 0; j < this.cellsCount; j++)
                     {
                         this.copyCellsContainer[i, j].num = copyCellsContainer[i, j].num;
                     }
-                }
+                } //т.к. ход походили то сохраняем в предыдущей ход, массив который мы откопировали перед началом текущего хода
             }
+            //fix me нужно добавить проверку на проигрыш
         }
 
         public void AddRandomCell(ref int x, ref int y)
@@ -185,7 +200,7 @@ namespace _2048_by_Hemok98
                     {
                         freeCells[freeCellsCount, 0] = i;
                         freeCells[freeCellsCount, 1] = j;
-                        freeCellsCount++;
+                        freeCellsCount++; //записываем в массив адреса свободных ячеек
                     }
                 }
             if (freeCellsCount == 0)
@@ -204,13 +219,17 @@ namespace _2048_by_Hemok98
 
         public void Output(TButton[,] displayMassive, Label stepsDisplay, Label scoreDisplay, Label recordDisplay, Label x2PriceDisplay, Label deletePriceDisplay, Label backPriceDisplay)
         {
-            stepsDisplay.Text = "Ход: " + this.steps.ToString();
+            //надо переделать передачу с массива кнопок, лейблов на массив интов, цветов и строк
+            //fix me
+            stepsDisplay.Text = "Ход: " + this.steps.ToString(); 
             scoreDisplay.Text = "Счёт: " + this.score.ToString();
             recordDisplay.Text = "Рекорд: " + this.record.ToString();
             x2PriceDisplay.Text = this.skillX2Price.ToString();
             deletePriceDisplay.Text = this.skillDeletePrice.ToString();
             backPriceDisplay.Text =  this.skillBackPrice.ToString();
+            //в переданные поля передаём значения игры
 
+            //передаём значения ячеек и задаём для них нужный цвет
             for (int i = 0; i < this.cellsCount; i++)
             {
                 for (int j = 0; j < this.cellsCount; j++)
@@ -247,13 +266,18 @@ namespace _2048_by_Hemok98
 
                 }
             }
+
+            //включаем отображение ячеек, нужно когда меняем размер поля, нужно убрать и переписать это в интерфейсную часть
+            //fix me
         }
 
-        public void SelectActivatedSkill(Skills skill)
+        public void SelectActivatedSkill(Skills skill) //обрабатывает активацию скилов
         {
             if (canUseSkill == false) return;
             if (skillActivated == true) return;
+            //если скил не может быть активирован или уже активирован, то выходим
 
+            //проверяем для каждого скила может ли он быть активирован(хватает ли очков), если хватило то переводим программу в ожидания нажатия по ячейки(кроме хода назад, он тут же обрабатывается)
             switch (skill)
             {
                 case Skills.X2:
@@ -278,34 +302,38 @@ namespace _2048_by_Hemok98
 
                 case Skills.BACK:
                 {
-                    if (this.score >= this.skillBackPrice)
+                    if (this.score >= this.skillBackPrice) //проверяем цену
                     {
-                        this.score -= this.skillBackPrice;
+
+                        this.score -= this.skillBackPrice; //списываем очки
                         this.skillBackPrice *= 5;
                         this.skillBackPrice /= 4;
-                            for (int i = 0; i < this.cellsCount; i++)
+                        //увеличиваем цену на 25%
+                        for (int i = 0; i < this.cellsCount; i++)
+                        {
+                            for (int j = 0; j < this.cellsCount; j++)
                             {
-                                for (int j = 0; j < this.cellsCount; j++)
-                                {
-                                    this.cellsContainer[i, j].num = this.copyCellsContainer[i, j].num;
-                                }
+                                this.cellsContainer[i, j].num = this.copyCellsContainer[i, j].num;
                             }
-                    this.activatedSkill = Skills.BACK;
-                    this.canUseSkill = false;
+                        }//копируем массив из предыдущего хода в текущий
+                        this.activatedSkill = Skills.BACK; //запоминаем какой скил мы активировали на всякий случай(мб добавить логи игры)
+                        this.canUseSkill = false; //запрещаем использование скилов на следующий ход
                     }
                     break;
                 }
             }
         }
 
-        public bool UseSkill(int str, int column)
+        public bool UseSkill(int str, int column) //обработка самих скилов, сюда пересылаются координаты нажатой ячейки, по которой использовали скил
         {
             if (skillActivated == false) return false;
+            //проверяем был ли вообще использован скил, если нет, то выкидываем
 
             switch (this.activatedSkill)
             {
                 case Skills.X2:
                     {
+                        //тоже самое как в ходе назад, только удваиваем нужную нам ячейку и ве
                         this.score -= this.skillX2Price;
                         this.skillX2Price *= 5;
                         this.skillX2Price /= 4;
@@ -327,7 +355,7 @@ namespace _2048_by_Hemok98
                         break;
                     }
 
-                case Skills.BACK:
+                case Skills.BACK: //вообще ненужная фигня и думаю её надо бы удалить, но пусть пока живёт
                     {
                         if (this.score >= this.skillBackPrice)
                         {
@@ -341,12 +369,12 @@ namespace _2048_by_Hemok98
             return true;
         }
 
-        public int GetRecord()
+        public int GetRecord() //возвращает текущий рекорд
         {
             return this.record;
         }
 
-        public void SetRecord(int record)
+        public void SetRecord(int record) //задаёт текущий рекорд. Пока используется для его обнуления
         {
             this.record = record;
             Properties.Settings.Default.saveRecord = record;
@@ -354,7 +382,7 @@ namespace _2048_by_Hemok98
 
         }
 
-        public void SaveGame(int saveNumber)
+        public void SaveGame(int saveNumber) //сохранение игры. По факту ме берём просто необходимый для работы список параметров записываем в одну строку через точку с запятой и сохраняем в заданую ячейку памяти
         {
             if (saveNumber == 0) return;
             string final = "";
@@ -404,7 +432,7 @@ namespace _2048_by_Hemok98
             Properties.Settings.Default.Save();
         }
 
-        public int LoadGame(int loadNumber)
+        public int LoadGame(int loadNumber) //загрущка игры. Проверяем что мы что-то загружаем, а не пустую строко. Распаршиваем сохранёную нами строку в нужные нам параметры
         {
             string str = "";
             switch (loadNumber)
@@ -497,12 +525,12 @@ namespace _2048_by_Hemok98
 
     }  
 
-    enum Skills
+    enum Skills //перечисление : варианты скилов
     {
         X2,DELETE,BACK
     }
 
-    enum Movement
+    enum Movement //перечисление : стороны движения
     {
         RIGHT,LEFT,UP,DOWN
     }

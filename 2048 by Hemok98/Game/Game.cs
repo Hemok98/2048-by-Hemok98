@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace _2048_by_Hemok98
 {
@@ -212,21 +213,21 @@ namespace _2048_by_Hemok98
 
             Random rm = new Random(); //если есть свободные ячейки - генерируем 2-ку в свободную из списка freeCells 
             int rand = rm.Next(0, freeCellsCount);
-            x = freeCells[rand, 0];
-            y = freeCells[rand, 1];
+            y = freeCells[rand, 0];
+            x = freeCells[rand, 1];
             this.cellsContainer[freeCells[rand, 0], freeCells[rand, 1]].num = 2;
         }
 
-        public void Output(TButton[,] displayMassive, Label stepsDisplay, Label scoreDisplay, Label recordDisplay, Label x2PriceDisplay, Label deletePriceDisplay, Label backPriceDisplay)
+        public void Output(string[,] cellsStr, Color[,] cellsCol, ref string stepsStr, ref string scoreStr, ref string recordStr, ref string x2PriceStr, ref string deletePriceStr, ref string backPriceStr)
         {
             //надо переделать передачу с массива кнопок, лейблов на массив интов, цветов и строк
             //fix me
-            stepsDisplay.Text = "Ход: " + this.steps.ToString(); 
-            scoreDisplay.Text = "Счёт: " + this.score.ToString();
-            recordDisplay.Text = "Рекорд: " + this.record.ToString();
-            x2PriceDisplay.Text = this.skillX2Price.ToString();
-            deletePriceDisplay.Text = this.skillDeletePrice.ToString();
-            backPriceDisplay.Text =  this.skillBackPrice.ToString();
+            stepsStr = "Ход: " + this.steps.ToString();
+            scoreStr = "Счёт: " + this.score.ToString();
+            recordStr = "Рекорд: " + this.record.ToString();
+            x2PriceStr = this.skillX2Price.ToString();
+            deletePriceStr = this.skillDeletePrice.ToString();
+            backPriceStr =  this.skillBackPrice.ToString();
             //в переданные поля передаём значения игры
 
             //передаём значения ячеек и задаём для них нужный цвет
@@ -234,41 +235,26 @@ namespace _2048_by_Hemok98
             {
                 for (int j = 0; j < this.cellsCount; j++)
                 {
-                    displayMassive[i, j].Text = this.cellsContainer[i, j].num.ToString();
-                    if (displayMassive[i, j].Text == "0") displayMassive[i, j].Text = "";
+                    cellsStr[i, j] = this.cellsContainer[i, j].num.ToString();
+                    if (this.cellsContainer[i, j].num == 0) cellsStr[i, j] = "";
                     
-                    if (this.cellsContainer[i, j].num == 0) displayMassive[i, j].BackColor = System.Drawing.Color.WhiteSmoke;
-                    if (this.cellsContainer[i, j].num == 2) displayMassive[i, j].BackColor = System.Drawing.Color.Gainsboro;
-                    if (this.cellsContainer[i, j].num == 4) displayMassive[i, j].BackColor = System.Drawing.Color.Silver;
-                    if (this.cellsContainer[i, j].num == 8) displayMassive[i, j].BackColor = System.Drawing.Color.PeachPuff;
-                    if (this.cellsContainer[i, j].num == 16) displayMassive[i, j].BackColor = System.Drawing.Color.DarkSalmon;
-                    if (this.cellsContainer[i, j].num == 32) displayMassive[i, j].BackColor = System.Drawing.Color.Tomato;
-                    if (this.cellsContainer[i, j].num == 64) displayMassive[i, j].BackColor = System.Drawing.Color.OrangeRed;
-                    if (this.cellsContainer[i, j].num == 128) displayMassive[i, j].BackColor = System.Drawing.Color.LemonChiffon;
-                    if (this.cellsContainer[i, j].num == 256) displayMassive[i, j].BackColor = System.Drawing.Color.Khaki;
-                    if (this.cellsContainer[i, j].num == 512) displayMassive[i, j].BackColor = System.Drawing.Color.Yellow;
-                    if (this.cellsContainer[i, j].num == 1024) displayMassive[i, j].BackColor = System.Drawing.Color.Gold;
-                    if (this.cellsContainer[i, j].num == 2048) displayMassive[i, j].BackColor = System.Drawing.Color.Goldenrod;
-                    if (this.cellsContainer[i, j].num == 4096) displayMassive[i, j].BackColor = System.Drawing.Color.Salmon;
-                    if (this.cellsContainer[i, j].num == 8192) displayMassive[i, j].BackColor = System.Drawing.Color.IndianRed;
-                    if (this.cellsContainer[i, j].num > 16384) displayMassive[i, j].BackColor = System.Drawing.Color.Brown;
-
-                    displayMassive[i, j].mainColor = displayMassive[i, j].BackColor;
+                    if (this.cellsContainer[i, j].num == 0) cellsCol[i,j] = Color.WhiteSmoke;
+                    if (this.cellsContainer[i, j].num == 2) cellsCol[i,j] = Color.Gainsboro;
+                    if (this.cellsContainer[i, j].num == 4) cellsCol[i,j] = Color.Silver;
+                    if (this.cellsContainer[i, j].num == 8) cellsCol[i,j] = Color.PeachPuff;
+                    if (this.cellsContainer[i, j].num == 16) cellsCol[i,j] = Color.DarkSalmon;
+                    if (this.cellsContainer[i, j].num == 32) cellsCol[i,j] = Color.Tomato;
+                    if (this.cellsContainer[i, j].num == 64) cellsCol[i,j] = Color.OrangeRed;
+                    if (this.cellsContainer[i, j].num == 128) cellsCol[i,j] = Color.LemonChiffon;
+                    if (this.cellsContainer[i, j].num == 256) cellsCol[i,j] = Color.Khaki;
+                    if (this.cellsContainer[i, j].num == 512) cellsCol[i,j] = Color.Yellow;
+                    if (this.cellsContainer[i, j].num == 1024) cellsCol[i,j] = Color.Gold;
+                    if (this.cellsContainer[i, j].num == 2048) cellsCol[i,j] = Color.Goldenrod;
+                    if (this.cellsContainer[i, j].num == 4096) cellsCol[i,j] = Color.Salmon;
+                    if (this.cellsContainer[i, j].num == 8192) cellsCol[i,j] = Color.IndianRed;
+                    if (this.cellsContainer[i, j].num > 16384) cellsCol[i,j] = Color.Brown;
                 }
             }
-            
-
-            for (int i = 0; i < MAXCELLS; i++)
-            {
-                for (int j = 0; j < MAXCELLS; j++)
-                {
-                    displayMassive[i, j].Visible = !(i >= cellsCount || j >= cellsCount);
-
-                }
-            }
-
-            //включаем отображение ячеек, нужно когда меняем размер поля, нужно убрать и переписать это в интерфейсную часть
-            //fix me
         }
 
         public void SelectActivatedSkill(Skills skill) //обрабатывает активацию скилов

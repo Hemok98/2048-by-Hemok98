@@ -51,6 +51,8 @@ namespace _2048_by_Hemok98
                     this.cellsDispay[i,j].BackColor = System.Drawing.Color.WhiteSmoke;
                 }
             }
+            this.SetCellsDiplay(4); //описана в Options.Action
+
 
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyPressed);
             this.KeyPreview = true;

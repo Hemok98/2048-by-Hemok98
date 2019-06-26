@@ -10,11 +10,11 @@ namespace _2048_by_Hemok98
     class TButton : Button
     {
 
-        public System.Drawing.Color mainColor;
+        public System.Drawing.Color MainColor;
 
         public TButton() : base()
         {
-            mainColor = System.Drawing.Color.White;
+            MainColor = System.Drawing.Color.White;
         }
     }
 }

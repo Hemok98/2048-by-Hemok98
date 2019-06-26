@@ -27,7 +27,7 @@ namespace _2048_by_Hemok98
                 this.loadButtons[this.selectedLoad - 1].BackColor = System.Drawing.Color.WhiteSmoke;
                 MessageBox.Show("Игра успешно загружена", "2048");
                 this.displayCellsCount = this.game.LoadGame(this.selectedLoad);
-                this.game.Output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay, this.backPriceDisplay);
+                this.DisplayShow();
             }
 
             else MessageBox.Show("Игра успешно ниоткуда не загружена", "2048");

@@ -45,7 +45,7 @@ namespace _2048_by_Hemok98
 
             //старт игры
             this.game.RestartGame();
-            this.game.Output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay,this.backPriceDisplay);
+            this.DisplayShow();
 
 
         }
@@ -86,17 +86,43 @@ namespace _2048_by_Hemok98
 
             if (x != -1) //если оно выполнено, то выводим поле и всё остальное
             {
-                this.game.Output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay, this.backPriceDisplay);
+                this.DisplayShow();
                 this.ShowNewCell(x, y);
                 
             }
             
         }
+        
+        private void DisplayShow()
+        {
+            string[,] cellsStr = new string[this.displayCellsCount, this.displayCellsCount];
+            Color[,] cellsColor = new Color[this.displayCellsCount, this.displayCellsCount];
+            string steps = "", score = "", record = "", x2Price = "", deletePrice = "", backPrice = "";
+            this.game.Output(cellsStr, cellsColor, ref steps, ref score, ref record, ref x2Price, ref deletePrice, ref backPrice);
+
+            for (int i = 0; i < this.displayCellsCount; i++)
+            {
+                for (int j = 0; j < this.displayCellsCount; j++)
+                {
+                    this.cellsDispay[i, j].Text = cellsStr[i, j];
+                    this.cellsDispay[i, j].BackColor = cellsColor[i, j];
+                    this.cellsDispay[i, j].MainColor = cellsColor[i, j];
+                }
+            }
+
+            this.stepDisplay.Text = steps;
+            this.scoreDisplay.Text = score;
+            this.recordDisplay.Text = record;
+            this.x2PriceDisplay.Text = x2Price;
+            this.deletePriceDisplay.Text = deletePrice;
+            this.backPriceDisplay.Text = backPrice;
+
+        }
 
         private void RestartButtonClick(object sender, EventArgs e) //перезапуск игры
         {
             this.game.RestartGame();
-            this.game.Output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay, this.backPriceDisplay);
+            this.DisplayShow();
         }
 
         private async void CellsDisplayClick(object sender, EventArgs e) //обработка нажатия по игровому полю
@@ -108,7 +134,7 @@ namespace _2048_by_Hemok98
             if ( this.game.UseSkill(indexX,indexY) ) //смотрим смогли мы использовать скил по этому полю
             {
                 await Task.Run(() => ChangeButtonColor(cell, System.Drawing.Color.Green)); //в паралельном потоке меняем цвет нажатой ячейки на зелёный
-                this.game.Output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay,this.backPriceDisplay); //выводим
+                this.DisplayShow(); //выводим
             }
             else
             {
@@ -121,7 +147,7 @@ namespace _2048_by_Hemok98
             cell.BackColor = color;
             Thread.Sleep(200);
             //cell.BackColor = System.Drawing.Color.WhiteSmoke;
-            cell.BackColor = cell.mainColor;
+            cell.BackColor = cell.MainColor;
         }
 
         private async void ShowNewCell(int x, int y) //показывает новую появившуюся ячейку
@@ -143,7 +169,7 @@ namespace _2048_by_Hemok98
         private void BackButtonClick(object sender, EventArgs e) //нажатие по ходу назад
         {
             this.game.SelectActivatedSkill(Skills.BACK);
-            this.game.Output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay,this.backPriceDisplay);
+            this.DisplayShow();
         }
 
         private void ChangeShowNewCells(object sender, EventArgs e) //переключать показа ячеек
@@ -206,7 +232,7 @@ namespace _2048_by_Hemok98
 
             if (x != -1 && beenUsed) //если была нажата нужная клавиша и что-либо исполнилось, то выводим и отображаем новую
             {
-                this.game.Output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay, this.backPriceDisplay);
+                this.DisplayShow();
                 this.ShowNewCell(x, y);
             }
 

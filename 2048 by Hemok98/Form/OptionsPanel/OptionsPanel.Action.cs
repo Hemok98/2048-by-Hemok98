@@ -36,17 +36,22 @@ namespace _2048_by_Hemok98
         {
             this.canUseKeys = this.WASDcheckBox.Checked;
             this.showNew = this.showNewCheckBox.Checked;
-            this.SetCellsDiplay(cellsCountTrackBar.Value);
-            this.game.cellsCount = cellsCountTrackBar.Value;
             if (this.resetRecordCheckBox.Checked == true)
             {
                 this.game.SetRecord(0);
             }
 
-            if (this.cellsCountTrackBar.Value != this.displayCellsCount) this.game.RestartGame();
-            this.displayCellsCount = this.cellsCountTrackBar.Value;
+            if (this.cellsCountTrackBar.Value != this.displayCellsCount)
+            {
+                this.displayCellsCount = this.cellsCountTrackBar.Value;
+                this.game.cellsCount = this.displayCellsCount;
+                this.SetCellsDiplay(this.cellsCountTrackBar.Value);
+                this.game.RestartGame();
+            }
 
-            this.game.Output(this.cellsDispay, stepDisplay, scoreDisplay, recordDisplay, this.x2PriceDisplay, this.deletePriceDisplay, this.backPriceDisplay);
+            
+
+            this.DisplayShow();
             MessageBox.Show("Настройки успешно применены", "2048");
         }
 
@@ -63,8 +68,11 @@ namespace _2048_by_Hemok98
                 {
                     this.cellsDispay[i, j].Location = new System.Drawing.Point(xStart + j * (size + indent), yStart + i * (size + indent));
                     this.cellsDispay[i, j].Size = new System.Drawing.Size(size, size);
+                    this.cellsDispay[i, j].Visible = ((i < this.displayCellsCount) && (j < this.displayCellsCount));
                 }
             }
+
+            
         }
 
         

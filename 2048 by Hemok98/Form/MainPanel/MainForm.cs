@@ -19,35 +19,29 @@ namespace _2048_by_Hemok98
 
         private int displayCellsCount = 4; //хранит кол-во ячеек поля
 
-        private int selectedPanel = 1; //хранит номер использованной панельки
+        private int selectedPanel = 0; //хранит номер использованной панельки
 
         public MainForm() //конструктор класса новой формы, то что запустится при её создании
         {
             //инициализация объектов на форме
-            this.InitializeComponent();
-            this.MyInitializeComponent();
-            this.InitializeOptionsPanel();
-            this.IntitializeSavesPanel();
-            this.SetDisplayOption();
-            this.IntitializeLoadPanel();
+            this.InitForm();
+            this.PagesInit();
 
-            /*
-            Properties.Settings.Default.saveString1 = "";
-            Properties.Settings.Default.saveString2 = "";
-            Properties.Settings.Default.saveString3 = "";
-            Properties.Settings.Default.saveString4 = "";
-            Properties.Settings.Default.saveString5 = "";
-            Properties.Settings.Default.saveString6 = "";
-            Properties.Settings.Default.saveString7 = "";
-            Properties.Settings.Default.saveString8 = "";
-            Properties.Settings.Default.saveString9 = "";
-            */
+            // /*
+            Properties.Settings.Default.saveCont1 = null;
+            Properties.Settings.Default.saveCont2 = null;
+            Properties.Settings.Default.saveCont3 = null;
+            Properties.Settings.Default.saveCont4 = null;
+            Properties.Settings.Default.saveCont5 = null;
+            Properties.Settings.Default.saveCont6 = null;
+            Properties.Settings.Default.saveCont7 = null;
+            Properties.Settings.Default.saveCont8 = null;
+            Properties.Settings.Default.saveCont9 = null;
+            // */
 
             //старт игры
             this.game.RestartGame();
             this.DisplayShow();
-
-
         }
 
         private Game game = new Game(); //сама игра по факту
@@ -97,8 +91,9 @@ namespace _2048_by_Hemok98
         {
             string[,] cellsStr = new string[this.displayCellsCount, this.displayCellsCount];
             Color[,] cellsColor = new Color[this.displayCellsCount, this.displayCellsCount];
-            string steps = "", score = "", record = "", x2Price = "", deletePrice = "", backPrice = "";
-            this.game.Output(cellsStr, cellsColor, ref steps, ref score, ref record, ref x2Price, ref deletePrice, ref backPrice);
+            string steps = "", score = "", record = "";
+            string[] skillsPrice = new string[Skill.skillCount];
+            this.game.Output(cellsStr, cellsColor, ref steps, ref score, ref record, skillsPrice);
 
             for (int i = 0; i < this.displayCellsCount; i++)
             {
@@ -113,10 +108,10 @@ namespace _2048_by_Hemok98
             this.stepDisplay.Text = steps;
             this.scoreDisplay.Text = score;
             this.recordDisplay.Text = record;
-            this.x2PriceDisplay.Text = x2Price;
-            this.deletePriceDisplay.Text = deletePrice;
-            this.backPriceDisplay.Text = backPrice;
-
+            this.x2PriceDisplay.Text = skillsPrice[0];
+            this.deletePriceDisplay.Text = skillsPrice[1];
+            this.backPriceDisplay.Text = skillsPrice[2];
+            this.swapPriceDisplay.Text = skillsPrice[3];
         }
 
         private void RestartButtonClick(object sender, EventArgs e) //перезапуск игры
@@ -157,19 +152,24 @@ namespace _2048_by_Hemok98
 
         private void X2ButtonClick(object sender, EventArgs e) //нажатие по Х2
         {
-            this.game.SelectActivatedSkill(Skills.X2);
+            this.game.SelectActivatedSkill(SkillName.X2);
             //this.textBox1.Text += this.game.skillActivated.ToString();
         }
 
         private void DeleteButtonClick(object sender, EventArgs e) //нажатие по обнулению
         {
-            this.game.SelectActivatedSkill(Skills.DELETE);
+            this.game.SelectActivatedSkill(SkillName.DELETE);
         }
 
         private void BackButtonClick(object sender, EventArgs e) //нажатие по ходу назад
         {
-            this.game.SelectActivatedSkill(Skills.BACK);
+            this.game.SelectActivatedSkill(SkillName.BACK);
             this.DisplayShow();
+        }
+
+        private void SwapButtonClick(object sender, EventArgs e) //нажатие по обнулению
+        {
+            this.game.SelectActivatedSkill(SkillName.SWAP);
         }
 
         private void ChangeShowNewCells(object sender, EventArgs e) //переключать показа ячеек
@@ -177,20 +177,6 @@ namespace _2048_by_Hemok98
             this.showNew = !this.showNew;
         }
 
-        private void GoToOptionsClick(object sender, EventArgs e) //нажатие по кнопке сверху для перехода во вкладку опций
-        {
-            if (selectedPanel == 2) return;
-            //смотрим если уже была выбрана эта панелька
-
-            //обнуляем панельку с настройка и отключаем видимость остальных
-            this.SetDisplayOption();
-            if (this.selectedPanel == 1) this.panel1.Visible = false;
-            if (this.selectedPanel == 3) this.panel3.Visible = false;
-            if (this.selectedPanel == 4) this.panel4.Visible = false;
-
-            this.selectedPanel = 2;
-            this.panel2.Visible = true;
-        }
 
         private void KeyPressed (object sender, KeyEventArgs e) //обработка нажатий клавиш клавиатуры
         {
@@ -244,46 +230,24 @@ namespace _2048_by_Hemok98
             Properties.Settings.Default.Save(); //сохраняем настройки
         }
 
-        private void GoToMainPanelClick(object sender, EventArgs e) //то же что и GoToOptionsClick. Нужно переписать в единую функцию 
-        // fix me
+        private void GoToPage(object sender, EventArgs e)
         {
-            if (selectedPanel == 1) return;
-            
-            if (this.selectedPanel == 4) this.panel4.Visible = false;
-            if (this.selectedPanel == 3) this.panel3.Visible = false;
-            if (this.selectedPanel == 2) this.panel2.Visible = false;
+            Button pressedButton = (Button)sender;
+            int num = -1;
+            if (pressedButton.Name == "goToMainPanelButton") num = 0;
+            if (pressedButton.Name == "goToOptionsButton") num = 1;
+            if (pressedButton.Name == "goToSavePanelButton") num = 2;
+            if (pressedButton.Name == "goToLoadPanelButton") num = 3;
 
-            this.selectedPanel = 1;
-            this.panel1.Visible = true;      
-        }
+            if (this.selectedPanel == num) return;
 
-        private void GoToSavePanelClick(object sender, EventArgs e) //аналогично предыдущей
-        {
-            if (selectedPanel == 3) return;
-           
-            this.selectedSave = 0;
-            this.ClearForUsingSaves();
-            
-            if (this.selectedPanel == 4) this.panel4.Visible = false;
-            if (this.selectedPanel == 2) this.panel2.Visible = false;
-            if (this.selectedPanel == 1) this.panel1.Visible = false;
+            if (num == 1) this.SetDisplayOption();
+            if (num == 2) { this.selectedSave = 0; this.ClearForUsingSaves(); }
+            if (num == 3) this.ClearForUsingLoad();
 
-            this.panel3.Visible = true;
-            this.selectedPanel = 3;
-        }
-
-        private void GoToLoadPanelClick(object sender, EventArgs e)//аналогично предыдущей
-        {
-            if (selectedPanel == 4) return;
-            
-            this.ClearForUsingLoad();
-            
-            if (this.selectedPanel == 3) this.panel3.Visible = false;
-            if (this.selectedPanel == 2) this.panel2.Visible = false;
-            if (this.selectedPanel == 1) this.panel1.Visible = false;
-
-            this.selectedPanel = 4;
-            this.panel4.Visible = true;
+            this.pages[selectedPanel].Visible = false;
+            this.pages[num].Visible = true;
+            this.selectedPanel = num;
         }
     }
 }

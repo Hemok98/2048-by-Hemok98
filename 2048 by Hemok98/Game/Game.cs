@@ -8,6 +8,7 @@ using System.Drawing;
 
 namespace _2048_by_Hemok98
 {
+    [Serializable]
     partial class Game
     {
         private Cells[,] cellsContainer = new Cells[MAXCELLS, MAXCELLS]; //массив который хранит основное поле игры
@@ -17,33 +18,32 @@ namespace _2048_by_Hemok98
 
         public int cellsCount = 4; //хранит текущее кол-во ячеек
 
-        private bool canUseSkill = true; //отвечает за то может ли игрок использовать скил, нужен для того чтобы игрок мог использовать скилы через ход
+        private Skill[] skills;
 
-        private bool skillActivated = false; //показывает был ли активирован скил, если да - то заставит пользователя выбрать нужную ячейку для совершения скила и будет блокировать исполнение других действий
+        private int[] swapCords = new int[2] { -1, -1};
 
-        private int startSkillX2Price = 1250; //т.к. каждое использование цена скилов растёт на 25%, хранит начальное значение цены для удвоения ячейки
-
-        private int startSkillDeletePrice = 1000; //аналогично предыдущему, только для обнуления ячейки
-
-        private int startSkillBackPrice = 1000; //аналогично предыдущему, только для хода назад
-
-        private int skillX2Price = 0; //хранит текущее значение цены скила удвоения ячейки
-
-        private int skillDeletePrice = 0; //аналогично предыдущему для обнуления учейки
-
-        private int skillBackPrice = 0; //аналогично предыдущему для хода назад
-        
         private int steps = 0; //счётчик ходов
-
         private int score = 0; //хранит текущий счёт
-
         private int record = Properties.Settings.Default.saveRecord; //хранит рекорд, подсасывая его из настроек
 
         public static int MAXCELLS = 6; //хранит максимальное колличество ячеек(возможно ненужна)
 
-        private Skills activatedSkill; //если скил был активирован хранит имя активированного скила
+        public Game()
+        {
+            //skills init
+            this.skills = new Skill[Skill.skillCount];
+            this.skills[0] = new Skill(1250, SkillName.X2);
+            this.skills[1] = new Skill(1000, SkillName.DELETE);
+            this.skills[2] = new Skill(1000, SkillName.BACK);
+            this.skills[3] = new Skill(500, SkillName.SWAP);
+        }
 
-        public void RestartGame() //перезапуск игры
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }     
+
+    public void RestartGame() //перезапуск игры
         {
             this.cellsContainer = new Cells[this.cellsCount, this.cellsCount];
             this.copyCellsContainer = new Cells[this.cellsCount, this.cellsCount];
@@ -65,17 +65,18 @@ namespace _2048_by_Hemok98
 
             this.steps = 0; //обнуляем счётчик ходов
             this.score = 0; //обнуляем счёт
-            this.skillX2Price = this.startSkillX2Price; //задаём стартовое значение цены для удвоения
-            this.skillDeletePrice = this.startSkillDeletePrice; //аналогично предыдущему для обнуления
-            this.skillBackPrice = this.startSkillBackPrice; //аналогично предыдущему для хода назад
-            this.skillActivated = false; //переводим в положение пока нельзя использовать скилы
+            for (int i = 0; i < Skill.skillCount; i++)
+            {
+                this.skills[i].ResetPrice();
+            }
+            Skill.skillActivated = false; //переводим в положение пока нельзя использовать скилы
 
         }
 
         public void Move(Movement direction, ref int x, ref int y) //главная игровая механика движения ячеек взависимости от направления.
         //сюда пересылаем направление и ссылки на координаты, куда запишим координаты новой сгенерированой ячейки(2)
         {   
-            if (skillActivated) return; //если скил был активирован, то не исполняем
+            if (Skill.skillActivated) return; //если скил был активирован, то не исполняем
 
             Cells[,] copyCellsContainer = new Cells[this.cellsCount, this.cellsCount]; //создаём промежуточный массив и копируем в него текущий
             for (int i = 0; i < this.cellsCount; i++)
@@ -176,7 +177,7 @@ namespace _2048_by_Hemok98
                 //вообще тут надо бы его сохранять в настройки на всякий так, что
                 //fix me
 
-                this.canUseSkill = true; //ход походили, скилы можно использовать
+                Skill.canUseSkill = true; //ход походили, скилы можно использовать
 
                 for (int i = 0; i < this.cellsCount; i++)
                 {
@@ -218,16 +219,18 @@ namespace _2048_by_Hemok98
             this.cellsContainer[freeCells[rand, 0], freeCells[rand, 1]].num = 2;
         }
 
-        public void Output(string[,] cellsStr, Color[,] cellsCol, ref string stepsStr, ref string scoreStr, ref string recordStr, ref string x2PriceStr, ref string deletePriceStr, ref string backPriceStr)
+        public void Output(string[,] cellsStr, Color[,] cellsCol, ref string stepsStr, ref string scoreStr, ref string recordStr, string[] skillsPrice)
         {
             //надо переделать передачу с массива кнопок, лейблов на массив интов, цветов и строк
             //fix me
             stepsStr = "Ход: " + this.steps.ToString();
             scoreStr = "Счёт: " + this.score.ToString();
             recordStr = "Рекорд: " + this.record.ToString();
-            x2PriceStr = this.skillX2Price.ToString();
-            deletePriceStr = this.skillDeletePrice.ToString();
-            backPriceStr =  this.skillBackPrice.ToString();
+            for (int i = 0; i < Skill.skillCount; i++ )
+            {
+                skillsPrice[i] = this.skills[i].GetPrice().ToString();
+            }
+
             //в переданные поля передаём значения игры
 
             //передаём значения ячеек и задаём для них нужный цвет
@@ -257,43 +260,44 @@ namespace _2048_by_Hemok98
             }
         }
 
-        public void SelectActivatedSkill(Skills skill) //обрабатывает активацию скилов
+        public void SelectActivatedSkill(SkillName skill) //обрабатывает активацию скилов
         {
-            if (canUseSkill == false) return;
-            if (skillActivated == true) return;
+            if (Skill.canUseSkill == false) return;
+            if (Skill.skillActivated == true) return;
             //если скил не может быть активирован или уже активирован, то выходим
 
             //проверяем для каждого скила может ли он быть активирован(хватает ли очков), если хватило то переводим программу в ожидания нажатия по ячейки(кроме хода назад, он тут же обрабатывается)
+            int num = (int)skill;
             switch (skill)
             {
-                case Skills.X2:
+                case SkillName.X2:
                 {
-                    if (this.score >= this.skillX2Price)
+                    if (this.score >= this.skills[num].GetPrice())
                     {
-                        skillActivated = true;
-                        this.activatedSkill = Skills.X2;
+                        Skill.skillActivated = true;
+                        Skill.activatedSkill = SkillName.X2;
                     }
                     break;
                 } 
                 
-                case Skills.DELETE:
+                case SkillName.DELETE:
                 {
-                    if (this.score >= this.skillDeletePrice)
+                    if (this.score >= this.skills[num].GetPrice())
                     {
-                        skillActivated = true;
-                        this.activatedSkill = Skills.DELETE;
+                        Skill.skillActivated = true;
+                        Skill.activatedSkill = SkillName.DELETE;
                     }
                     break;
                 }
 
-                case Skills.BACK:
+                case SkillName.BACK:
                 {
-                    if (this.score >= this.skillBackPrice) //проверяем цену
+                    if (this.score >= this.skills[num].GetPrice()) //проверяем цену
                     {
 
-                        this.score -= this.skillBackPrice; //списываем очки
-                        this.skillBackPrice *= 5;
-                        this.skillBackPrice /= 4;
+                        this.score -= this.skills[num].GetPrice();
+                        this.skills[num].IncPrice();
+                        Skill.SkillEnd();
                         //увеличиваем цену на 25%
                         for (int i = 0; i < this.cellsCount; i++)
                         {
@@ -302,8 +306,16 @@ namespace _2048_by_Hemok98
                                 this.cellsContainer[i, j].num = this.copyCellsContainer[i, j].num;
                             }
                         }//копируем массив из предыдущего хода в текущий
-                        this.activatedSkill = Skills.BACK; //запоминаем какой скил мы активировали на всякий случай(мб добавить логи игры)
-                        this.canUseSkill = false; //запрещаем использование скилов на следующий ход
+                    }
+                    break;
+                }
+
+                case SkillName.SWAP:
+                {
+                    if (this.score >= this.skills[num].GetPrice())
+                    {
+                        Skill.skillActivated = true;
+                        Skill.activatedSkill = SkillName.SWAP;
                     }
                     break;
                 }
@@ -312,44 +324,63 @@ namespace _2048_by_Hemok98
 
         public bool UseSkill(int str, int column) //обработка самих скилов, сюда пересылаются координаты нажатой ячейки, по которой использовали скил
         {
-            if (skillActivated == false) return false;
+            if (Skill.skillActivated == false) return false;
             //проверяем был ли вообще использован скил, если нет, то выкидываем
+            int num = (int)Skill.activatedSkill;
 
-            switch (this.activatedSkill)
+            switch (Skill.activatedSkill)
             {
-                case Skills.X2:
-                    {
-                        //тоже самое как в ходе назад, только удваиваем нужную нам ячейку и ве
-                        this.score -= this.skillX2Price;
-                        this.skillX2Price *= 5;
-                        this.skillX2Price /= 4;
-                        this.canUseSkill = false;
-                        this.cellsContainer[str, column].num += this.cellsContainer[str, column].num;
-                        this.skillActivated = false;
-                        break;
-                    }
+                case SkillName.X2:
+                {
+                    //тоже самое как в ходе назад, только удваиваем нужную нам ячейку и ве
+                    this.score -= this.skills[num].GetPrice();
+                    this.skills[num].IncPrice();
+                    Skill.SkillEnd();
+                    this.cellsContainer[str, column].num += this.cellsContainer[str, column].num;
+                    break;
+                }
 
 
-                case Skills.DELETE:
-                    {
-                        this.score -= this.skillDeletePrice;
-                        this.skillX2Price *= 5;
-                        this.skillX2Price /= 4;
-                        this.canUseSkill = false;
-                        this.cellsContainer[str, column].num -= this.cellsContainer[str, column].num;
-                        this.skillActivated = false;
-                        break;
-                    }
+                case SkillName.DELETE:
+                {
+                    this.score -= this.skills[num].GetPrice();
+                    this.skills[num].IncPrice();
+                    Skill.SkillEnd();
 
-                case Skills.BACK: //вообще ненужная фигня и думаю её надо бы удалить, но пусть пока живёт
+                    this.cellsContainer[str, column].num -= this.cellsContainer[str, column].num;
+                        
+                    break;
+                }
+
+                case SkillName.BACK: //вообще ненужная фигня и думаю её надо бы удалить, но пусть пока живёт
+                {
+                   
+                    break;
+                }
+
+                case SkillName.SWAP:
+                {
+                    if (this.swapCords[0] == -1)
                     {
-                        if (this.score >= this.skillBackPrice)
+                        this.swapCords[0] = str;
+                        this.swapCords[1] = column;
+                    } else
+                    {
+                        if ( (this.swapCords[0] != str) || (this.swapCords[1] != column))
                         {
-                            //skillActivated = true;
-                            activatedSkill = Skills.BACK;
+                            int vspomog = this.cellsContainer[this.swapCords[0], this.swapCords[1]].num;
+                            this.cellsContainer[this.swapCords[0], this.swapCords[1]].num = this.cellsContainer[str, column].num;
+                            this.cellsContainer[str, column].num = vspomog;
+
+                            this.score -= this.skills[num].GetPrice();
+                            this.skills[num].IncPrice();
+                            Skill.SkillEnd();
+                            this.swapCords[0] = -1;
+                            this.swapCords[1] = -1;
                         }
-                        break;
                     }
+                    break;
+                }
             }
 
             return true;
@@ -368,153 +399,7 @@ namespace _2048_by_Hemok98
 
         }
 
-        public void SaveGame(int saveNumber) //сохранение игры. По факту ме берём просто необходимый для работы список параметров записываем в одну строку через точку с запятой и сохраняем в заданую ячейку памяти
-        {
-            if (saveNumber == 0) return;
-            string final = "";
-
-            final += this.cellsCount.ToString() + ";";
-            for (int i = 0; i < this.cellsCount; i++)
-            {
-                for (int j = 0; j < this.cellsCount; j++)
-                {
-                    final += this.cellsContainer[i, j].num.ToString() + ";";
-                    final += this.copyCellsContainer[i, j].num.ToString() + ";";
-                }
-            }
-
-            final += this.steps.ToString() + ";";
-            final += this.score.ToString() + ";";
-            final += this.canUseSkill.ToString() + ";";
-            final += this.activatedSkill + ";";
-            final += this.skillActivated.ToString() + ";";
-
-            final += this.skillBackPrice.ToString() + ";";
-            final += this.skillDeletePrice.ToString() + ";";
-            final += this.skillX2Price.ToString() + ";";
-            
-            switch (saveNumber)
-            {
-                case 1 : Properties.Settings.Default.saveString1 = final;
-                    break;
-                case 2 : Properties.Settings.Default.saveString2 = final;
-                    break;
-                case 3 : Properties.Settings.Default.saveString3 = final;
-                    break;
-                case 4 : Properties.Settings.Default.saveString4 = final;
-                    break;
-                case 5 : Properties.Settings.Default.saveString5 = final;
-                    break;
-                case 6 : Properties.Settings.Default.saveString6 = final;
-                    break;
-                case 7 : Properties.Settings.Default.saveString7 = final;
-                    break;
-                case 8 : Properties.Settings.Default.saveString8 = final;
-                    break;
-                case 9 : Properties.Settings.Default.saveString9 = final;
-                    break;
-            }
-
-            Properties.Settings.Default.Save();
-        }
-
-        public int LoadGame(int loadNumber) //загрущка игры. Проверяем что мы что-то загружаем, а не пустую строко. Распаршиваем сохранёную нами строку в нужные нам параметры
-        {
-            string str = "";
-            switch (loadNumber)
-            {
-                case 1 : str = Properties.Settings.Default.saveString1;
-                break;
-
-                case 2 : str = Properties.Settings.Default.saveString2;
-                    break;
-
-                case 3 : str = Properties.Settings.Default.saveString3;
-                    break;
-
-                case 4 : str = Properties.Settings.Default.saveString4;
-                break;
-
-                case 5 : str = Properties.Settings.Default.saveString5;
-                break;
-
-                case 6 : str = Properties.Settings.Default.saveString6;
-                break;
-
-                case 7 : str = Properties.Settings.Default.saveString7;
-                break;
-
-                case 8 : str = Properties.Settings.Default.saveString8;
-                break;
-
-                case 9 : str = Properties.Settings.Default.saveString9;
-                break;
-            }
-
-            if (str == "") return 0;
-
-            string parse = "";
-            parse = str.Substring(0, str.IndexOf(";"));
-            str = str.Substring(str.IndexOf(";") + 1);
-            this.cellsCount = int.Parse(parse);
-            this.cellsContainer = new Cells[this.cellsCount, this.cellsCount];
-            this.copyCellsContainer = new Cells[this.cellsCount, this.cellsCount];
-
-            for (int i = 0; i < this.cellsCount; i++)
-            {
-                for (int j = 0; j < this.cellsCount; j++)
-                {
-                    parse = str.Substring(0, str.IndexOf(";"));
-                    str = str.Substring(str.IndexOf(";") + 1);
-                    this.cellsContainer[i, j] = new Cells(int.Parse(parse));
-
-                    parse = str.Substring(0, str.IndexOf(";"));
-                    str = str.Substring(str.IndexOf(";") + 1);
-                    this.copyCellsContainer[i, j] = new Cells(int.Parse(parse));
-                }
-            }
-
-            parse = str.Substring(0, str.IndexOf(";"));
-            str = str.Substring(str.IndexOf(";") + 1);
-            this.steps = int.Parse(parse);
-
-            parse = str.Substring(0, str.IndexOf(";"));
-            str = str.Substring(str.IndexOf(";") + 1);
-            this.record = int.Parse(parse);
-
-            parse = str.Substring(0, str.IndexOf(";"));
-            str = str.Substring(str.IndexOf(";") + 1);
-            this.canUseSkill = bool.Parse(parse);
-
-            parse = str.Substring(0, str.IndexOf(";"));
-            str = str.Substring(str.IndexOf(";") + 1);
-            this.activatedSkill = (Skills)Enum.Parse(typeof(Skills), parse);
-
-            parse = str.Substring(0, str.IndexOf(";"));
-            str = str.Substring(str.IndexOf(";") + 1);
-            this.skillActivated = bool.Parse(parse);
-
-            parse = str.Substring(0, str.IndexOf(";"));
-            str = str.Substring(str.IndexOf(";") + 1);
-            this.skillBackPrice = int.Parse(parse);
-
-            parse = str.Substring(0, str.IndexOf(";"));
-            str = str.Substring(str.IndexOf(";") + 1);
-            this.skillDeletePrice = int.Parse(parse);
-
-            parse = str.Substring(0, str.IndexOf(";"));
-            str = str.Substring(str.IndexOf(";") + 1);
-            this.skillX2Price = int.Parse(parse);
-
-            return this.cellsCount;
-        }
-
     }  
-
-    enum Skills //перечисление : варианты скилов
-    {
-        X2,DELETE,BACK
-    }
 
     enum Movement //перечисление : стороны движения
     {

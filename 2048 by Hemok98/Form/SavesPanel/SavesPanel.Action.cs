@@ -7,8 +7,8 @@ namespace _2048_by_Hemok98
     {
         private int selectedSave = 0;
 
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Button acceptSavesButton;
+        private Panel panel3;
+        private Button acceptSavesButton;
         private Button[] saveButtons;
 
         private void ClearForUsingSaves()
@@ -35,7 +35,19 @@ namespace _2048_by_Hemok98
             {
                 this.saveButtons[this.selectedSave-1].BackColor = System.Drawing.Color.WhiteSmoke;
                 MessageBox.Show("Игра успешно сохранена", "2048");
-                this.game.SaveGame(this.selectedSave);
+                //this.game.SaveGame(this.selectedSave);
+
+                if (this.selectedSave == 1) Properties.Settings.Default.saveCont1 = (object)ObjectCopier.Clone(this.game);
+                if (this.selectedSave == 2) Properties.Settings.Default.saveCont2 = (object)ObjectCopier.Clone(this.game);
+                if (this.selectedSave == 3) Properties.Settings.Default.saveCont3 = (object)ObjectCopier.Clone(this.game);
+                if (this.selectedSave == 4) Properties.Settings.Default.saveCont4 = (object)ObjectCopier.Clone(this.game);
+                if (this.selectedSave == 5) Properties.Settings.Default.saveCont5 = (object)ObjectCopier.Clone(this.game);
+                if (this.selectedSave == 6) Properties.Settings.Default.saveCont6 = (object)ObjectCopier.Clone(this.game);
+                if (this.selectedSave == 7) Properties.Settings.Default.saveCont7 = (object)ObjectCopier.Clone(this.game);
+                if (this.selectedSave == 8) Properties.Settings.Default.saveCont8 = (object)ObjectCopier.Clone(this.game);
+                if (this.selectedSave == 9) Properties.Settings.Default.saveCont9 = (object)ObjectCopier.Clone(this.game);
+
+                Properties.Settings.Default.Save();
             }
                 
                 else MessageBox.Show("Игра успешно никуда не сохранена", "2048");

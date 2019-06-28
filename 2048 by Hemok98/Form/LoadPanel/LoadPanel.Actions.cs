@@ -26,7 +26,19 @@ namespace _2048_by_Hemok98
             {
                 this.loadButtons[this.selectedLoad - 1].BackColor = System.Drawing.Color.WhiteSmoke;
                 MessageBox.Show("Игра успешно загружена", "2048");
-                this.displayCellsCount = this.game.LoadGame(this.selectedLoad);
+
+                if (this.selectedLoad == 1 && Properties.Settings.Default.saveCont1 != null) this.game = (Game)ObjectCopier.Clone(Properties.Settings.Default.saveCont1);
+                if (this.selectedLoad == 2 && Properties.Settings.Default.saveCont2 != null) this.game = (Game)ObjectCopier.Clone(Properties.Settings.Default.saveCont2);
+                if (this.selectedLoad == 3 && Properties.Settings.Default.saveCont3 != null) this.game = (Game)ObjectCopier.Clone(Properties.Settings.Default.saveCont3);
+                if (this.selectedLoad == 4 && Properties.Settings.Default.saveCont4 != null) this.game = (Game)ObjectCopier.Clone(Properties.Settings.Default.saveCont4);
+                if (this.selectedLoad == 5 && Properties.Settings.Default.saveCont5 != null) this.game = (Game)ObjectCopier.Clone(Properties.Settings.Default.saveCont5);
+                if (this.selectedLoad == 6 && Properties.Settings.Default.saveCont6 != null) this.game = (Game)ObjectCopier.Clone(Properties.Settings.Default.saveCont6);
+                if (this.selectedLoad == 7 && Properties.Settings.Default.saveCont7 != null) this.game = (Game)ObjectCopier.Clone(Properties.Settings.Default.saveCont7);
+                if (this.selectedLoad == 8 && Properties.Settings.Default.saveCont8 != null) this.game = (Game)ObjectCopier.Clone(Properties.Settings.Default.saveCont8);
+                if (this.selectedLoad == 9 && Properties.Settings.Default.saveCont9 != null) this.game = (Game)ObjectCopier.Clone(Properties.Settings.Default.saveCont9);
+
+                this.displayCellsCount = this.game.cellsCount;
+                this.SetCellsDiplay(displayCellsCount);
                 this.DisplayShow();
             }
 

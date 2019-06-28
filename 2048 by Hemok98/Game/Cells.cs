@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace _2048_by_Hemok98
 {
+    [Serializable]
     class Cells
     {
         public int num = 0;

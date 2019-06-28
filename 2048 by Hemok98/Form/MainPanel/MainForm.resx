@@ -118,6 +118,25 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="swapButton.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAEEAAABBCAYAAACO98lFAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1
+        MAAA6mAAADqYAAAXb5JfxUYAAAAJcEhZcwAADsQAAA7EAZUrDhsAAALpSURBVHhe5dixjtpQEAXQBQkk
+        oEMgpaSgoqbjByhCR5Efo0gZfiFV6lQpUlKsUq6iKIr8Dc5cr4cdP18bEyLsx1g6q/X1m6eZUZRin9I0
+        dY+G3tDQGxp6Q0NvaOgNDb2hoTc09IaG3tCwCXkSNR6PX9iZWNDwErMAvEDCzsWChnXy4e0CfC0Bw+bs
+        AsDHEjBozg4PWc5qYkHDkA4q7PAQ/QKAhpYOKuzw8BALABoqHVTY4eFhFgA0BB1U2OHhoRYAPHS0ACgH
+        zhYAxReHC4C3X6oXAA+7AHj9Ub8A0O93EzYaWq1WX685XwePXhQO3qaLg+VnGp+vg0cv6prKofAtVzgP
+        7PwleNiFXXDNv4RzDbDzdV5/5MXCXtgW7aXJEljPF2tDb79UX5put9v0dDq9uxfbYB15/ssiii/Vl6a7
+        3e6TPdsV/X7/j/R30yLKQfUikvV6/SU83wWj0egn+gv6zXoGVmPxMC8W9kJIFovFd1bTttls9oz+gn6z
+        noHVKBqCFgt7ISTT6fQHq2nbcrn8hv6CfrOegdUADZUWC3shJMPh8Beradtms/mM/oJ+s56B1ZSCkBYL
+        eyEkvV6v0X8897bf7z+SfrOeITxfeKmixcJeCPRS5nA4fNDzdxL2qrLvtrdCo3W0WNgLoXRpSM+IsLYt
+        hZ5LDdfRYmEvhMolHI/H9/genO+C8yJo43W0WBQuZGdhMpm8kPNd8W9LABTnsouAnVN6RuClK85906ab
+        0Ev0okvs+TvSgUPZ93NvttFHkg9qB1eFBWRn7cuj0EGFHR5KC8jOh0HsdFBhhwe6gKyGhbHSQYUdHioX
+        ADSMkQ4q7PBQuwCgYWx0UGGHh4sLABrGRAcVdnhotACgYSx0UGGHh8YLABrGQAcVdni4agFAwxjkw9rh
+        4eoFAA27bjAY/M4HvnkBQMMY5EPfvACgYQzm87n+dfmmBQANvaGhNzT0hobe0NAbGnpDQ29o6A0NvaGh
+        NzT0JX36C92pEt/BGu62AAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="backButton.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAACytJREFUeF7t

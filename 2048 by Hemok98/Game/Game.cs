@@ -189,7 +189,8 @@ namespace _2048_by_Hemok98
                     }
                 } //т.к. ход походили то сохраняем в предыдущей ход, массив который мы откопировали перед началом текущего хода
 
-                this.lose = this.CheckLose();         
+                this.lose = this.CheckLose();
+                this.acvimentManager.ChekGame(this);
             }
         }
 
@@ -433,6 +434,26 @@ namespace _2048_by_Hemok98
             this.skillActivated = false;
         }
 
+        public void GetGame(int[,] cells, ref int record, ref int score, ref int steps)
+        {
+            for (int i = 0; i < this.cellsCount; i++)
+            {
+                for (int j = 0; j < this.cellsCount; j++)
+                {
+                    cells[i, j] = this.cellsContainer[i, j].num;
+                }
+            }
+
+            record = this.record;
+            score = this.score;
+            steps = this.steps;
+        }
+
+        private Achivements acvimentManager;
+        public void SetAchivRef(Achivements achivRef)
+        {
+            this.acvimentManager = achivRef;
+        }
     }  
 
     enum Movement //перечисление : стороны движения

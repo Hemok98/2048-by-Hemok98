@@ -21,6 +21,7 @@ namespace _2048_by_Hemok98
 
         private int selectedPanel = 0; //хранит номер использованной панельки
 
+        private Achivements achiveManager;
         public MainForm() //конструктор класса новой формы, то что запустится при её создании
         {
             //инициализация объектов на форме
@@ -42,6 +43,11 @@ namespace _2048_by_Hemok98
             //старт игры
             this.game.RestartGame();
             this.DisplayShow();
+
+            this.achiveManager = new Achivements();
+
+            if (Properties.Settings.Default.saveAchivements != null) achiveManager = (Achivements)Properties.Settings.Default.saveAchivements;
+            this.game.SetAchivRef(this.achiveManager);
         }
 
         private Game game = new Game(); //сама игра по факту
@@ -236,9 +242,10 @@ namespace _2048_by_Hemok98
             Button pressedButton = (Button)sender;
             int num = -1;
             if (pressedButton.Name == "goToMainPanelButton") num = 0;
-            if (pressedButton.Name == "goToOptionsButton") num = 1;
+            if (pressedButton.Name == "goToOptionsPanelButton") num = 1;
             if (pressedButton.Name == "goToSavePanelButton") num = 2;
             if (pressedButton.Name == "goToLoadPanelButton") num = 3;
+            if (pressedButton.Name == "goToAchivesPanelButton") num = 4;
 
             if (this.selectedPanel == num) return;
 

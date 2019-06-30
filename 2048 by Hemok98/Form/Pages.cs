@@ -27,7 +27,7 @@ namespace _2048_by_Hemok98
             this.IntitializeSavesPanel();
             this.SetDisplayOption();
             this.IntitializeLoadPanel();
-
+            this.AchivesPanelInit();
         }
     }
 }

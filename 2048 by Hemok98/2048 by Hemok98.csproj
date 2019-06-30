@@ -64,6 +64,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Form\AchivementsPanel\Achivements.Designer.cs" />
+    <Compile Include="Form\AchivementsPanel\AchivementsPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Form\LoadPanel\LoadPanel.Designer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +78,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form\SavesPanel\SavesPanel.Designer.cs" />
+    <Compile Include="Game\Achivements.cs" />
     <Compile Include="Game\Cells.cs" />
     <Compile Include="Game\Clone.cs" />
     <Compile Include="Game\Game.cs" />
@@ -131,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon1.ico" />
+    <None Include="Resources\Achives.txt" />
     <None Include="Resources\x2.png" />
     <None Include="Resources\nazad64.png" />
     <None Include="Resources\del.png" />

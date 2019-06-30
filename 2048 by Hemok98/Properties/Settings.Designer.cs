@@ -133,5 +133,41 @@ namespace _2048_by_Hemok98.Properties {
                 this["saveCont9"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public object saveAchivements {
+            get {
+                return ((object)(this["saveAchivements"]));
+            }
+            set {
+                this["saveAchivements"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"Добро пожаловать в 1/8; Соберите 256 в одной ячейки;
+Добро пожаловать в 1/4; Соберите 512 в одной ячейки;
+Вы прошли в полуфинал; Соберите 1024 в одной ячейки;
+Поздравляем с выходом в финал; Соберите 2048 в одной ячейки;
+Не, ну это СУПЕРФИНАЛ; Соберите 4096 в одной ячейки;
+Отличное начало;Наберите 1000 очков;
+Продолжай в том же духе;Наберите 5000 очков;
+Неплохо играешь;Наберите 10000 очков;
+Проффесионал;Наберите 50000 очков;
+В глазах двоится;Используйте удвоение первый раз;
+Вас  здесь не стояло;Используйте удвоение первый раз;
+5 секунд не плошло;Используйте удвоение первый раз;
+Предохраняться - это хорошо;Впервые сохранитесь;
+Прямиком из креогенной камеры;Впервые загрузитесь;")]
+        public string achivementsParse {
+            get {
+                return ((string)(this["achivementsParse"]));
+            }
+            set {
+                this["achivementsParse"] = value;
+            }
+        }
     }
 }

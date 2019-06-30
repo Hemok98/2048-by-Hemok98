@@ -57,7 +57,7 @@ namespace _2048_by_Hemok98
 
         private void SetCellsDiplay(int count)
         {
-            int xStart = 10;
+            int xStart = 20;
             int yStart = 50;          
             int indent = 10;
             int size = (390 - (count-1)*indent) / count;

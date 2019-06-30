@@ -7,8 +7,7 @@ namespace _2048_by_Hemok98
     {
         private int selectedLoad = 0;
 
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Button acceptLoadButton;
+        private Button acceptLoadButton;
         private Button[] loadButtons;
 
         private void SelectLoadNumber(object sender, EventArgs e)
@@ -42,7 +41,7 @@ namespace _2048_by_Hemok98
                 this.DisplayShow();
             }
 
-            else MessageBox.Show("Игра успешно ниоткуда не загружена", "2048");
+            else MessageBox.Show("Вы не выбрали ячейку для загрузки", "2048");
         }
 
         private void ClearForUsingLoad()

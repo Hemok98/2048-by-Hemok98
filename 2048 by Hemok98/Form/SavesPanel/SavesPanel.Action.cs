@@ -7,7 +7,6 @@ namespace _2048_by_Hemok98
     {
         private int selectedSave = 0;
 
-        private Panel panel3;
         private Button acceptSavesButton;
         private Button[] saveButtons;
 
@@ -35,7 +34,7 @@ namespace _2048_by_Hemok98
             {
                 this.saveButtons[this.selectedSave-1].BackColor = System.Drawing.Color.WhiteSmoke;
                 MessageBox.Show("Игра успешно сохранена", "2048");
-                //this.game.SaveGame(this.selectedSave);
+                
 
                 if (this.selectedSave == 1) Properties.Settings.Default.saveCont1 = (object)ObjectCopier.Clone(this.game);
                 if (this.selectedSave == 2) Properties.Settings.Default.saveCont2 = (object)ObjectCopier.Clone(this.game);
@@ -47,10 +46,11 @@ namespace _2048_by_Hemok98
                 if (this.selectedSave == 8) Properties.Settings.Default.saveCont8 = (object)ObjectCopier.Clone(this.game);
                 if (this.selectedSave == 9) Properties.Settings.Default.saveCont9 = (object)ObjectCopier.Clone(this.game);
 
+
                 Properties.Settings.Default.Save();
             }
                 
-                else MessageBox.Show("Игра успешно никуда не сохранена", "2048");
+                else MessageBox.Show("Вы не выбрали ячейку для сохранения", "2048");
         }
 
         

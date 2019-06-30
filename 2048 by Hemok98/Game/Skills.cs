@@ -9,12 +9,11 @@ namespace _2048_by_Hemok98
         private int startPrice;
         private int nowPrice;
         private SkillName name;
-        public static bool canUseSkill = false;
-        public static bool skillActivated = false;
+
 
         public static int skillCount = 4;
 
-        public static SkillName activatedSkill;
+
 
         public Skill(int price, SkillName name)
         {
@@ -44,11 +43,6 @@ namespace _2048_by_Hemok98
             this.nowPrice = this.startPrice;
         }
 
-        public static void SkillEnd()
-        {
-            Skill.canUseSkill = false;
-            Skill.skillActivated = false;
-        }
     }
 
     enum SkillName //перечисление : варианты скилов

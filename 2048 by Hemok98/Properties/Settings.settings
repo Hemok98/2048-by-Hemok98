@@ -5,31 +5,31 @@
     <Setting Name="saveRecord" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="saveString1" Type="System.String" Scope="User">
+    <Setting Name="saveCont1" Type="System.Object" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="saveString2" Type="System.String" Scope="User">
+    <Setting Name="saveCont2" Type="System.Object" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="saveString3" Type="System.String" Scope="User">
+    <Setting Name="saveCont3" Type="System.Object" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="saveString4" Type="System.String" Scope="User">
+    <Setting Name="saveCont4" Type="System.Object" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="saveString5" Type="System.String" Scope="User">
+    <Setting Name="saveCont5" Type="System.Object" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="saveString6" Type="System.String" Scope="User">
+    <Setting Name="saveCont6" Type="System.Object" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="saveString7" Type="System.String" Scope="User">
+    <Setting Name="saveCont7" Type="System.Object" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="saveString8" Type="System.String" Scope="User">
+    <Setting Name="saveCont8" Type="System.Object" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="saveString9" Type="System.String" Scope="User">
+    <Setting Name="saveCont9" Type="System.Object" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

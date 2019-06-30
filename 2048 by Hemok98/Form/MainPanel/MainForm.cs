@@ -27,7 +27,7 @@ namespace _2048_by_Hemok98
             this.InitForm();
             this.PagesInit();
 
-            // /*
+             /*
             Properties.Settings.Default.saveCont1 = null;
             Properties.Settings.Default.saveCont2 = null;
             Properties.Settings.Default.saveCont3 = null;
@@ -82,7 +82,7 @@ namespace _2048_by_Hemok98
             {
                 this.DisplayShow();
                 this.ShowNewCell(x, y);
-                
+                if (this.game.CheckLose()) MessageBox.Show("Вы проиграли! :(", "2048");
             }
             
         }
@@ -220,6 +220,7 @@ namespace _2048_by_Hemok98
             {
                 this.DisplayShow();
                 this.ShowNewCell(x, y);
+                if (this.game.CheckLose()) MessageBox.Show("Вы проиграли! :(", "2048");
             }
 
         }

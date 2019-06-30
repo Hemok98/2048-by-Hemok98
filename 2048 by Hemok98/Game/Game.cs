@@ -28,6 +28,12 @@ namespace _2048_by_Hemok98
 
         public static int MAXCELLS = 6; //хранит максимальное колличество ячеек(возможно ненужна)
 
+        private bool canUseSkill = false;
+        private bool skillActivated = false;
+        private SkillName activatedSkill;
+
+        private bool lose;
+
         public Game()
         {
             //skills init
@@ -36,14 +42,9 @@ namespace _2048_by_Hemok98
             this.skills[1] = new Skill(1000, SkillName.DELETE);
             this.skills[2] = new Skill(1000, SkillName.BACK);
             this.skills[3] = new Skill(500, SkillName.SWAP);
-        }
+        }   
 
-        public object Clone()
-        {
-            return this.MemberwiseClone();
-        }     
-
-    public void RestartGame() //перезапуск игры
+        public void RestartGame() //перезапуск игры
         {
             this.cellsContainer = new Cells[this.cellsCount, this.cellsCount];
             this.copyCellsContainer = new Cells[this.cellsCount, this.cellsCount];
@@ -69,14 +70,15 @@ namespace _2048_by_Hemok98
             {
                 this.skills[i].ResetPrice();
             }
-            Skill.skillActivated = false; //переводим в положение пока нельзя использовать скилы
-
+            this.skillActivated = false; //переводим в положение пока нельзя использовать скилы
+            this.lose = false;
         }
 
         public void Move(Movement direction, ref int x, ref int y) //главная игровая механика движения ячеек взависимости от направления.
         //сюда пересылаем направление и ссылки на координаты, куда запишим координаты новой сгенерированой ячейки(2)
-        {   
-            if (Skill.skillActivated) return; //если скил был активирован, то не исполняем
+        {
+            if (this.lose) return;
+            if (this.skillActivated) return; //если скил был активирован, то не исполняем
 
             Cells[,] copyCellsContainer = new Cells[this.cellsCount, this.cellsCount]; //создаём промежуточный массив и копируем в него текущий
             for (int i = 0; i < this.cellsCount; i++)
@@ -177,7 +179,7 @@ namespace _2048_by_Hemok98
                 //вообще тут надо бы его сохранять в настройки на всякий так, что
                 //fix me
 
-                Skill.canUseSkill = true; //ход походили, скилы можно использовать
+                this.canUseSkill = true; //ход походили, скилы можно использовать
 
                 for (int i = 0; i < this.cellsCount; i++)
                 {
@@ -186,8 +188,9 @@ namespace _2048_by_Hemok98
                         this.copyCellsContainer[i, j].num = copyCellsContainer[i, j].num;
                     }
                 } //т.к. ход походили то сохраняем в предыдущей ход, массив который мы откопировали перед началом текущего хода
+
+                this.lose = this.CheckLose();         
             }
-            //fix me нужно добавить проверку на проигрыш
         }
 
         public void AddRandomCell(ref int x, ref int y)
@@ -217,6 +220,29 @@ namespace _2048_by_Hemok98
             y = freeCells[rand, 0];
             x = freeCells[rand, 1];
             this.cellsContainer[freeCells[rand, 0], freeCells[rand, 1]].num = 2;
+        }
+
+        public bool CheckLose()
+        {
+            for (int i = 0; i < this.cellsCount; i++)
+            {
+                for (int j = 0; j < this.cellsCount; j++)
+                {
+                    if (this.cellsContainer[i, j].num == 0) return false;
+
+                    if ( i < (this.cellsCount - 1) )
+                    {
+                        if (this.cellsContainer[i, j].num == this.cellsContainer[i + 1, j].num) return false;
+                    }
+
+                    if (j < (this.cellsCount - 1))
+                    {
+                        if (this.cellsContainer[i, j].num == this.cellsContainer[i , j+1].num) return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
         public void Output(string[,] cellsStr, Color[,] cellsCol, ref string stepsStr, ref string scoreStr, ref string recordStr, string[] skillsPrice)
@@ -262,8 +288,9 @@ namespace _2048_by_Hemok98
 
         public void SelectActivatedSkill(SkillName skill) //обрабатывает активацию скилов
         {
-            if (Skill.canUseSkill == false) return;
-            if (Skill.skillActivated == true) return;
+            if (this.canUseSkill == false) return;
+            if (this.skillActivated == true) return;
+            if (this.lose) return;
             //если скил не может быть активирован или уже активирован, то выходим
 
             //проверяем для каждого скила может ли он быть активирован(хватает ли очков), если хватило то переводим программу в ожидания нажатия по ячейки(кроме хода назад, он тут же обрабатывается)
@@ -274,8 +301,8 @@ namespace _2048_by_Hemok98
                 {
                     if (this.score >= this.skills[num].GetPrice())
                     {
-                        Skill.skillActivated = true;
-                        Skill.activatedSkill = SkillName.X2;
+                        this.skillActivated = true;
+                        this.activatedSkill = SkillName.X2;
                     }
                     break;
                 } 
@@ -284,8 +311,8 @@ namespace _2048_by_Hemok98
                 {
                     if (this.score >= this.skills[num].GetPrice())
                     {
-                        Skill.skillActivated = true;
-                        Skill.activatedSkill = SkillName.DELETE;
+                        this.skillActivated = true;
+                        this.activatedSkill = SkillName.DELETE;
                     }
                     break;
                 }
@@ -297,7 +324,7 @@ namespace _2048_by_Hemok98
 
                         this.score -= this.skills[num].GetPrice();
                         this.skills[num].IncPrice();
-                        Skill.SkillEnd();
+                        this.SkillEnd();
                         //увеличиваем цену на 25%
                         for (int i = 0; i < this.cellsCount; i++)
                         {
@@ -314,8 +341,8 @@ namespace _2048_by_Hemok98
                 {
                     if (this.score >= this.skills[num].GetPrice())
                     {
-                        Skill.skillActivated = true;
-                        Skill.activatedSkill = SkillName.SWAP;
+                        this.skillActivated = true;
+                        this.activatedSkill = SkillName.SWAP;
                     }
                     break;
                 }
@@ -324,18 +351,19 @@ namespace _2048_by_Hemok98
 
         public bool UseSkill(int str, int column) //обработка самих скилов, сюда пересылаются координаты нажатой ячейки, по которой использовали скил
         {
-            if (Skill.skillActivated == false) return false;
+            if (this.lose) return false; ;
+            if (this.skillActivated == false) return false;
             //проверяем был ли вообще использован скил, если нет, то выкидываем
-            int num = (int)Skill.activatedSkill;
+            int num = (int)this.activatedSkill;
 
-            switch (Skill.activatedSkill)
+            switch (this.activatedSkill)
             {
                 case SkillName.X2:
                 {
                     //тоже самое как в ходе назад, только удваиваем нужную нам ячейку и ве
                     this.score -= this.skills[num].GetPrice();
                     this.skills[num].IncPrice();
-                    Skill.SkillEnd();
+                    this.SkillEnd();
                     this.cellsContainer[str, column].num += this.cellsContainer[str, column].num;
                     break;
                 }
@@ -345,7 +373,7 @@ namespace _2048_by_Hemok98
                 {
                     this.score -= this.skills[num].GetPrice();
                     this.skills[num].IncPrice();
-                    Skill.SkillEnd();
+                    this.SkillEnd();
 
                     this.cellsContainer[str, column].num -= this.cellsContainer[str, column].num;
                         
@@ -374,7 +402,7 @@ namespace _2048_by_Hemok98
 
                             this.score -= this.skills[num].GetPrice();
                             this.skills[num].IncPrice();
-                            Skill.SkillEnd();
+                            this.SkillEnd();
                             this.swapCords[0] = -1;
                             this.swapCords[1] = -1;
                         }
@@ -397,6 +425,12 @@ namespace _2048_by_Hemok98
             Properties.Settings.Default.saveRecord = record;
             Properties.Settings.Default.Save();
 
+        }
+
+        private void SkillEnd()
+        {
+            this.canUseSkill = false;
+            this.skillActivated = false;
         }
 
     }  

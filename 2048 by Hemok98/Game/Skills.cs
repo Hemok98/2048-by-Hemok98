@@ -43,6 +43,10 @@ namespace _2048_by_Hemok98
             this.nowPrice = this.startPrice;
         }
 
+        public void SetPrice(int price)
+        {
+            this.nowPrice = price;
+        }
     }
 
     enum SkillName //перечисление : варианты скилов

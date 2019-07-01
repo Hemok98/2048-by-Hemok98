@@ -24,21 +24,39 @@ namespace _2048_by_Hemok98
             if (this.selectedLoad != 0)
             {
                 this.loadButtons[this.selectedLoad - 1].BackColor = System.Drawing.Color.WhiteSmoke;
-                MessageBox.Show("Игра успешно загружена", "2048");
 
-                if (this.selectedLoad == 1 && Properties.Settings.Default.saveCont1 != null) this.game = (Game)ObjectCopier.Clone(Properties.Settings.Default.saveCont1);
-                if (this.selectedLoad == 2 && Properties.Settings.Default.saveCont2 != null) this.game = (Game)ObjectCopier.Clone(Properties.Settings.Default.saveCont2);
-                if (this.selectedLoad == 3 && Properties.Settings.Default.saveCont3 != null) this.game = (Game)ObjectCopier.Clone(Properties.Settings.Default.saveCont3);
-                if (this.selectedLoad == 4 && Properties.Settings.Default.saveCont4 != null) this.game = (Game)ObjectCopier.Clone(Properties.Settings.Default.saveCont4);
-                if (this.selectedLoad == 5 && Properties.Settings.Default.saveCont5 != null) this.game = (Game)ObjectCopier.Clone(Properties.Settings.Default.saveCont5);
-                if (this.selectedLoad == 6 && Properties.Settings.Default.saveCont6 != null) this.game = (Game)ObjectCopier.Clone(Properties.Settings.Default.saveCont6);
-                if (this.selectedLoad == 7 && Properties.Settings.Default.saveCont7 != null) this.game = (Game)ObjectCopier.Clone(Properties.Settings.Default.saveCont7);
-                if (this.selectedLoad == 8 && Properties.Settings.Default.saveCont8 != null) this.game = (Game)ObjectCopier.Clone(Properties.Settings.Default.saveCont8);
-                if (this.selectedLoad == 9 && Properties.Settings.Default.saveCont9 != null) this.game = (Game)ObjectCopier.Clone(Properties.Settings.Default.saveCont9);
+                bool flag = false;
+                if (this.selectedLoad == 1 && Properties.Settings.Default.saveStr1 != "") flag = true;        
+                if (this.selectedLoad == 2 && Properties.Settings.Default.saveStr2 != "") flag = true;
+                if (this.selectedLoad == 3 && Properties.Settings.Default.saveStr3 != "") flag = true;
+                if (this.selectedLoad == 4 && Properties.Settings.Default.saveStr4 != "") flag = true;
+                if (this.selectedLoad == 5 && Properties.Settings.Default.saveStr5 != "") flag = true;
+                if (this.selectedLoad == 6 && Properties.Settings.Default.saveStr6 != "") flag = true;
+                if (this.selectedLoad == 7 && Properties.Settings.Default.saveStr7 != "") flag = true;
+                if (this.selectedLoad == 8 && Properties.Settings.Default.saveStr8 != "") flag = true;
+                if (this.selectedLoad == 9 && Properties.Settings.Default.saveStr9 != "") flag = true;
 
-                this.displayCellsCount = this.game.cellsCount;
-                this.SetCellsDiplay(displayCellsCount);
-                this.DisplayShow();
+                if (flag)
+                {
+                    this.game = new Game();
+
+                    if (this.selectedLoad == 1) this.game.LoadGame(Properties.Settings.Default.saveStr1);
+                    if (this.selectedLoad == 2) this.game.LoadGame(Properties.Settings.Default.saveStr2);
+                    if (this.selectedLoad == 3) this.game.LoadGame(Properties.Settings.Default.saveStr3);
+                    if (this.selectedLoad == 4) this.game.LoadGame(Properties.Settings.Default.saveStr4);
+                    if (this.selectedLoad == 5) this.game.LoadGame(Properties.Settings.Default.saveStr5);
+                    if (this.selectedLoad == 6) this.game.LoadGame(Properties.Settings.Default.saveStr6);
+                    if (this.selectedLoad == 7) this.game.LoadGame(Properties.Settings.Default.saveStr7);
+                    if (this.selectedLoad == 8) this.game.LoadGame(Properties.Settings.Default.saveStr8);
+                    if (this.selectedLoad == 9) this.game.LoadGame(Properties.Settings.Default.saveStr9);
+
+                    this.game.SetAchivRef(this.achiveManager);
+                    this.displayCellsCount = this.game.cellsCount;
+                    this.SetCellsDiplay(displayCellsCount);
+                    this.DisplayShow();
+                    MessageBox.Show("Игра успешно загружена", "2048");
+                }
+                else MessageBox.Show("Вы выбрали пустую ячейку сохранения", "2048");
             }
 
             else MessageBox.Show("Вы не выбрали ячейку для загрузки", "2048");

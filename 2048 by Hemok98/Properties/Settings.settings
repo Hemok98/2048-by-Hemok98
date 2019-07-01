@@ -2,39 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="_2048_by_Hemok98.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="saveRecord" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="saveCont1" Type="System.Object" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="saveCont2" Type="System.Object" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="saveCont3" Type="System.Object" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="saveCont4" Type="System.Object" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="saveCont5" Type="System.Object" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="saveCont6" Type="System.Object" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="saveCont7" Type="System.Object" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="saveCont8" Type="System.Object" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="saveCont9" Type="System.Object" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
-    <Setting Name="saveAchivements" Type="System.Object" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="achivementsParse" Type="System.String" Scope="User">
       <Value Profile="(Default)">Добро пожаловать в 1/8; Соберите 256 в одной ячейки;
 Добро пожаловать в 1/4; Соберите 512 в одной ячейки;
@@ -50,6 +17,39 @@
 5 секунд не плошло;Используйте удвоение первый раз;
 Предохраняться - это хорошо;Впервые сохранитесь;
 Прямиком из креогенной камеры;Впервые загрузитесь;</Value>
+    </Setting>
+    <Setting Name="achievsContainer" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="saveStr1" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="saveStr2" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="saveStr3" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="saveStr4" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="saveStr5" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="saveStr6" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="saveStr7" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="saveStr8" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="saveStr9" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="saveRecord" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

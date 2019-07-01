@@ -21,32 +21,20 @@ namespace _2048_by_Hemok98
 
         private int selectedPanel = 0; //хранит номер использованной панельки
 
-        private Achivements achiveManager;
+        private Achievements achiveManager;
         public MainForm() //конструктор класса новой формы, то что запустится при её создании
         {
+            //ClearSavesAchievs();
             //инициализация объектов на форме
             this.InitForm();
             this.PagesInit();
-
-             /*
-            Properties.Settings.Default.saveCont1 = null;
-            Properties.Settings.Default.saveCont2 = null;
-            Properties.Settings.Default.saveCont3 = null;
-            Properties.Settings.Default.saveCont4 = null;
-            Properties.Settings.Default.saveCont5 = null;
-            Properties.Settings.Default.saveCont6 = null;
-            Properties.Settings.Default.saveCont7 = null;
-            Properties.Settings.Default.saveCont8 = null;
-            Properties.Settings.Default.saveCont9 = null;
-            // */
-
             //старт игры
             this.game.RestartGame();
             this.DisplayShow();
 
-            this.achiveManager = new Achivements();
-
-            if (Properties.Settings.Default.saveAchivements != null) achiveManager = (Achivements)Properties.Settings.Default.saveAchivements;
+            this.achiveManager = new Achievements();
+            this.achiveManager.LoadAchivements(Properties.Settings.Default.achievsContainer);
+            
             this.game.SetAchivRef(this.achiveManager);
         }
 
@@ -234,6 +222,7 @@ namespace _2048_by_Hemok98
         private void Form1Closed(object sender, FormClosedEventArgs e) //обработка закрытия формы(программы в целом)
         {
             Properties.Settings.Default.saveRecord = this.game.GetRecord(); //сохраняем рекорд в настройки
+            Properties.Settings.Default.achievsContainer = this.achiveManager.SaveGame();
             Properties.Settings.Default.Save(); //сохраняем настройки
         }
 
@@ -252,10 +241,26 @@ namespace _2048_by_Hemok98
             if (num == 1) this.SetDisplayOption();
             if (num == 2) { this.selectedSave = 0; this.ClearForUsingSaves(); }
             if (num == 3) this.ClearForUsingLoad();
+            if (num == 4) this.DisplayAchivements();
 
             this.pages[selectedPanel].Visible = false;
             this.pages[num].Visible = true;
             this.selectedPanel = num;
+        }
+
+        private void ClearSavesAchievs()
+        {
+            Properties.Settings.Default.achievsContainer = "";
+            Properties.Settings.Default.saveStr1 = "";
+            Properties.Settings.Default.saveStr2 = "";
+            Properties.Settings.Default.saveStr3 = "";
+            Properties.Settings.Default.saveStr4 = "";
+            Properties.Settings.Default.saveStr5 = "";
+            Properties.Settings.Default.saveStr6 = "";
+            Properties.Settings.Default.saveStr7 = "";
+            Properties.Settings.Default.saveStr8 = "";
+            Properties.Settings.Default.saveStr9 = "";
+            Properties.Settings.Default.Save();
         }
     }
 }

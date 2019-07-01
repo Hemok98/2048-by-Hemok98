@@ -25,128 +25,6 @@ namespace _2048_by_Hemok98.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int saveRecord {
-            get {
-                return ((int)(this["saveRecord"]));
-            }
-            set {
-                this["saveRecord"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public object saveCont1 {
-            get {
-                return ((object)(this["saveCont1"]));
-            }
-            set {
-                this["saveCont1"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public object saveCont2 {
-            get {
-                return ((object)(this["saveCont2"]));
-            }
-            set {
-                this["saveCont2"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public object saveCont3 {
-            get {
-                return ((object)(this["saveCont3"]));
-            }
-            set {
-                this["saveCont3"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public object saveCont4 {
-            get {
-                return ((object)(this["saveCont4"]));
-            }
-            set {
-                this["saveCont4"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public object saveCont5 {
-            get {
-                return ((object)(this["saveCont5"]));
-            }
-            set {
-                this["saveCont5"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public object saveCont6 {
-            get {
-                return ((object)(this["saveCont6"]));
-            }
-            set {
-                this["saveCont6"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public object saveCont7 {
-            get {
-                return ((object)(this["saveCont7"]));
-            }
-            set {
-                this["saveCont7"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public object saveCont8 {
-            get {
-                return ((object)(this["saveCont8"]));
-            }
-            set {
-                this["saveCont8"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public object saveCont9 {
-            get {
-                return ((object)(this["saveCont9"]));
-            }
-            set {
-                this["saveCont9"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public object saveAchivements {
-            get {
-                return ((object)(this["saveAchivements"]));
-            }
-            set {
-                this["saveAchivements"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"Добро пожаловать в 1/8; Соберите 256 в одной ячейки;
 Добро пожаловать в 1/4; Соберите 512 в одной ячейки;
 Вы прошли в полуфинал; Соберите 1024 в одной ячейки;
@@ -167,6 +45,138 @@ namespace _2048_by_Hemok98.Properties {
             }
             set {
                 this["achivementsParse"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string achievsContainer {
+            get {
+                return ((string)(this["achievsContainer"]));
+            }
+            set {
+                this["achievsContainer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string saveStr1 {
+            get {
+                return ((string)(this["saveStr1"]));
+            }
+            set {
+                this["saveStr1"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string saveStr2 {
+            get {
+                return ((string)(this["saveStr2"]));
+            }
+            set {
+                this["saveStr2"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string saveStr3 {
+            get {
+                return ((string)(this["saveStr3"]));
+            }
+            set {
+                this["saveStr3"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string saveStr4 {
+            get {
+                return ((string)(this["saveStr4"]));
+            }
+            set {
+                this["saveStr4"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string saveStr5 {
+            get {
+                return ((string)(this["saveStr5"]));
+            }
+            set {
+                this["saveStr5"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string saveStr6 {
+            get {
+                return ((string)(this["saveStr6"]));
+            }
+            set {
+                this["saveStr6"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string saveStr7 {
+            get {
+                return ((string)(this["saveStr7"]));
+            }
+            set {
+                this["saveStr7"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string saveStr8 {
+            get {
+                return ((string)(this["saveStr8"]));
+            }
+            set {
+                this["saveStr8"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string saveStr9 {
+            get {
+                return ((string)(this["saveStr9"]));
+            }
+            set {
+                this["saveStr9"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int saveRecord {
+            get {
+                return ((int)(this["saveRecord"]));
+            }
+            set {
+                this["saveRecord"] = value;
             }
         }
     }

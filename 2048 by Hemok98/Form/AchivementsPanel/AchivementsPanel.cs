@@ -69,9 +69,9 @@ namespace _2048_by_Hemok98
             this.ResumeLayout(false);
         }
 
-        public void setColor()
+        public void setColor(bool alreadyGet)
         {
-
+            if (alreadyGet) this.BackColor = System.Drawing.Color.PeachPuff; else this.BackColor = System.Drawing.Color.LightGray;
         }
     }
 }

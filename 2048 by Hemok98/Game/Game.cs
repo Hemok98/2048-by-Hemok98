@@ -449,8 +449,8 @@ namespace _2048_by_Hemok98
             steps = this.steps;
         }
 
-        private Achivements acvimentManager;
-        public void SetAchivRef(Achivements achivRef)
+        private Achievements acvimentManager;
+        public void SetAchivRef(Achievements achivRef)
         {
             this.acvimentManager = achivRef;
         }

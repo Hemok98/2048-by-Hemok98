@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 namespace _2048_by_Hemok98
 {
     [Serializable]
-    class Achivements
+    class Achievements
     {
-        public static int achivCount = 17;
+        public static int achivCount = 14;
         private bool[] achivContainer = new bool[achivCount];
 
-        public Achivements()
+        public Achievements()
         {
             for (int i = 0; i < achivCount; i++)
             {
@@ -42,6 +42,36 @@ namespace _2048_by_Hemok98
             this.achivContainer[6] = this.achivContainer[6] || (record > 5000);
             this.achivContainer[7] = this.achivContainer[7] || (record > 10000);
             this.achivContainer[8] = this.achivContainer[8] || (record > 50000);
+        }
+
+        public void LoadAchivements(string str)
+        {
+            int i = 0;
+            string parse = "";
+            while (str != "")
+            {
+                parse = str.Substring(0, str.IndexOf(";"));
+                str = str.Substring(str.IndexOf(";") + 1);
+                this.achivContainer[i] = bool.Parse(parse);
+                i++;
+            }
+        }
+
+        public string SaveGame()
+        {
+            string final = "";
+            for (int i = 0; i < Achievements.achivCount; i++)
+            {
+                final += this.achivContainer[i].ToString()+";";
+            }
+            return final;
+        }
+
+        public bool GetAchivement(int num)
+        {
+            if (num >= Achievements.achivCount) return false;
+            if (num < 0) return false;
+            return achivContainer[num];
         }
     }
 }

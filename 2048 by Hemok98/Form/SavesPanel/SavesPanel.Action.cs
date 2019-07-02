@@ -46,7 +46,7 @@ namespace _2048_by_Hemok98
                 if (this.selectedSave == 8) Properties.Settings.Default.saveStr8 = this.game.SaveGame();
                 if (this.selectedSave == 9) Properties.Settings.Default.saveStr9 = this.game.SaveGame();
                 Properties.Settings.Default.Save();
-                this.achiveManager.ChekSaveLoad("load");
+                this.achiveManager.ChekSaveLoad("save");
                 MessageBox.Show("Игра успешно сохранена", "2048");                
             }
                 

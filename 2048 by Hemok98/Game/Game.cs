@@ -334,6 +334,7 @@ namespace _2048_by_Hemok98
                                 this.cellsContainer[i, j].num = this.copyCellsContainer[i, j].num;
                             }
                         }//копируем массив из предыдущего хода в текущий
+                        this.acvimentManager.ChekSkill(SkillName.BACK);
                     }
                     break;
                 }
@@ -366,6 +367,7 @@ namespace _2048_by_Hemok98
                     this.skills[num].IncPrice();
                     this.SkillEnd();
                     this.cellsContainer[str, column].num += this.cellsContainer[str, column].num;
+                    this.acvimentManager.ChekSkill(SkillName.X2);
                     break;
                 }
 
@@ -377,7 +379,7 @@ namespace _2048_by_Hemok98
                     this.SkillEnd();
 
                     this.cellsContainer[str, column].num -= this.cellsContainer[str, column].num;
-                        
+                    this.acvimentManager.ChekSkill(SkillName.DELETE);
                     break;
                 }
 
@@ -406,6 +408,7 @@ namespace _2048_by_Hemok98
                             this.SkillEnd();
                             this.swapCords[0] = -1;
                             this.swapCords[1] = -1;
+                            this.acvimentManager.ChekSkill(SkillName.SWAP);
                         }
                     }
                     break;

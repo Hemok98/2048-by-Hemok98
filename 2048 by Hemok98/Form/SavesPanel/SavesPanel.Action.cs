@@ -34,8 +34,7 @@ namespace _2048_by_Hemok98
             
             if ( this.selectedSave != 0 )
             {
-                this.saveButtons[this.selectedSave-1].BackColor = System.Drawing.Color.WhiteSmoke;
-                MessageBox.Show("Игра успешно сохранена", "2048");             
+                this.saveButtons[this.selectedSave-1].BackColor = System.Drawing.Color.WhiteSmoke;           
 
                 if (this.selectedSave == 1) Properties.Settings.Default.saveStr1 = this.game.SaveGame();
                 if (this.selectedSave == 2) Properties.Settings.Default.saveStr2 = this.game.SaveGame();
@@ -45,9 +44,10 @@ namespace _2048_by_Hemok98
                 if (this.selectedSave == 6) Properties.Settings.Default.saveStr6 = this.game.SaveGame();
                 if (this.selectedSave == 7) Properties.Settings.Default.saveStr7 = this.game.SaveGame();
                 if (this.selectedSave == 8) Properties.Settings.Default.saveStr8 = this.game.SaveGame();
-                if (this.selectedSave == 9) Properties.Settings.Default.saveStr9 = this.game.SaveGame();  
-
+                if (this.selectedSave == 9) Properties.Settings.Default.saveStr9 = this.game.SaveGame();
                 Properties.Settings.Default.Save();
+                this.achiveManager.ChekSaveLoad("load");
+                MessageBox.Show("Игра успешно сохранена", "2048");                
             }
                 
                 else MessageBox.Show("Вы не выбрали ячейку для сохранения", "2048");

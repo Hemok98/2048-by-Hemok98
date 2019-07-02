@@ -25,6 +25,7 @@ namespace _2048_by_Hemok98
         public MainForm() //конструктор класса новой формы, то что запустится при её создании
         {
             //ClearSavesAchievs();
+            //Properties.Settings.Default.achievsContainer = "";
             //инициализация объектов на форме
             this.InitForm();
             this.PagesInit();
@@ -33,7 +34,8 @@ namespace _2048_by_Hemok98
             this.DisplayShow();
 
             this.achiveManager = new Achievements();
-            this.achiveManager.LoadAchivements(Properties.Settings.Default.achievsContainer);
+            if (Properties.Settings.Default.achievsContainer.Length != 0)
+                this.achiveManager.LoadAchivements(Properties.Settings.Default.achievsContainer);
             
             this.game.SetAchivRef(this.achiveManager);
         }

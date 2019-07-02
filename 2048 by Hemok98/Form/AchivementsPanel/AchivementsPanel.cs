@@ -45,7 +45,7 @@ namespace _2048_by_Hemok98
             this.nameDisplay.Size = new System.Drawing.Size(490, 30);
             this.nameDisplay.TabIndex = 7;
             this.nameDisplay.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.nameDisplay.Text = description;
+            this.nameDisplay.Text = nam;
             this.nameDisplay.Visible = true;
             this.Controls.Add(this.nameDisplay);
             //
@@ -63,7 +63,7 @@ namespace _2048_by_Hemok98
             this.DescriptionDisplay.Name = description;
             this.DescriptionDisplay.Size = new System.Drawing.Size(460, 60);
             this.DescriptionDisplay.TabIndex = 7;
-            this.DescriptionDisplay.Text = nam;
+            this.DescriptionDisplay.Text = description;
             this.Controls.Add(this.DescriptionDisplay);
 
             this.ResumeLayout(false);

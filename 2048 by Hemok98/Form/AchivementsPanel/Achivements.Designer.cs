@@ -5,7 +5,7 @@ namespace _2048_by_Hemok98
 {
     partial class MainForm
     {
-        private AchivementsPanel[] achivesDisplay = new AchivementsPanel[Achievements.achivCount+10];
+        private AchivementsPanel[] achivesDisplay = new AchivementsPanel[Achievements.achivCount];
         private void AchivesPanelInit()
         {
             //for (int i = 0; i < Achivements.achivCount; i++)
@@ -31,6 +31,8 @@ namespace _2048_by_Hemok98
                 this.achivesDisplay[i] = new AchivementsPanel(name, descrip, ((System.Drawing.Bitmap)(resources.GetObject("swapButton.BackgroundImage"))),10,10+i*100);
                 this.pages[4].Controls.Add(achivesDisplay[i]);
                 i++;
+                if (str != "") str = str.Substring(2);
+                //if (i == 10) break;
             }  
             
         }

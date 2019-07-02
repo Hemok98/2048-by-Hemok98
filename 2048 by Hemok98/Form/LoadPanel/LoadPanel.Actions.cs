@@ -39,6 +39,7 @@ namespace _2048_by_Hemok98
                 if (flag)
                 {
                     this.game = new Game();
+                    this.achiveManager.ChekSaveLoad("load");
 
                     if (this.selectedLoad == 1) this.game.LoadGame(Properties.Settings.Default.saveStr1);
                     if (this.selectedLoad == 2) this.game.LoadGame(Properties.Settings.Default.saveStr2);

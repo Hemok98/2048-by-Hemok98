@@ -26,7 +26,7 @@ namespace _2048_by_Hemok98
             // 
             // cellsCountTrackBar
             // 
-            this.cellsCountTrackBar.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.cellsCountTrackBar.BackColor = System.Drawing.Color.White;
             this.cellsCountTrackBar.LargeChange = 1;
             this.cellsCountTrackBar.Location = new System.Drawing.Point(0, 80);
             this.cellsCountTrackBar.Maximum = 6;
@@ -39,7 +39,7 @@ namespace _2048_by_Hemok98
             // 
             // trackBarLabel
             // 
-            this.trackBarLabel.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.trackBarLabel.BackColor = System.Drawing.Color.White;
             this.trackBarLabel.Font = new System.Drawing.Font("Comic Sans MS", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.trackBarLabel.ForeColor = System.Drawing.SystemColors.Highlight;
             this.trackBarLabel.Location = new System.Drawing.Point(0, 50);
@@ -51,7 +51,7 @@ namespace _2048_by_Hemok98
             // 
             // trackBarLabel
             // 
-            this.optinsNameDisplay.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.optinsNameDisplay.BackColor = System.Drawing.Color.White;
             this.optinsNameDisplay.Font = new System.Drawing.Font("Comic Sans MS", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.optinsNameDisplay.ForeColor = System.Drawing.Color.DarkRed;
             this.optinsNameDisplay.Location = new System.Drawing.Point(0, 0);
@@ -63,40 +63,40 @@ namespace _2048_by_Hemok98
             // 
             // resetRecordCheckBox
             //
-            this.resetRecordCheckBox.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.resetRecordCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.resetRecordCheckBox.Location = new System.Drawing.Point(300, 125);
+            this.resetRecordCheckBox.BackColor = System.Drawing.Color.White;
+            this.resetRecordCheckBox.Font = new System.Drawing.Font("Comic Sans MS", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.resetRecordCheckBox.Location = new System.Drawing.Point(310, 125);
             this.resetRecordCheckBox.Name = "resetRecordCheckBox";
             this.resetRecordCheckBox.Size = new System.Drawing.Size(300, 45);
             this.resetRecordCheckBox.TabIndex = 2;
             this.resetRecordCheckBox.Text = "Обнулить рекорд";
-            this.resetRecordCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.resetRecordCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.resetRecordCheckBox.UseVisualStyleBackColor = false;
 
 
             // 
             // showNewCheckBox
             //
-            this.showNewCheckBox.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.showNewCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.showNewCheckBox.BackColor = System.Drawing.Color.White;
+            this.showNewCheckBox.Font = new System.Drawing.Font("Comic Sans MS", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.showNewCheckBox.Location = new System.Drawing.Point(0, 125);
             this.showNewCheckBox.Name = "showNewCheckBox";
             this.showNewCheckBox.Size = new System.Drawing.Size(300, 45);
             this.showNewCheckBox.TabIndex = 2;
             this.showNewCheckBox.Text = "Отображать появление новых чисел";
-            this.showNewCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.showNewCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.showNewCheckBox.UseVisualStyleBackColor = false;
             // 
             // WASDcheckBox
             // 
-            this.WASDcheckBox.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.WASDcheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.WASDcheckBox.BackColor = System.Drawing.Color.White;
+            this.WASDcheckBox.Font = new System.Drawing.Font("Comic Sans MS", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.WASDcheckBox.Location = new System.Drawing.Point(0, 170);
             this.WASDcheckBox.Name = "WASDcheckBox";
             this.WASDcheckBox.Size = new System.Drawing.Size(300, 45);
             this.WASDcheckBox.TabIndex = 3;
             this.WASDcheckBox.Text = "Управление клавиатурой(WASD)";
-            this.WASDcheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.WASDcheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.WASDcheckBox.UseVisualStyleBackColor = false;
             // 
             // acceptOptions
@@ -113,7 +113,8 @@ namespace _2048_by_Hemok98
             this.acceptOptions.Click += new System.EventHandler(this.AcceptOptionsClick);
             // 
             // panel1
-            // 
+            //
+            //this.pages[1].BackColor = System.Drawing.Color.White;
             this.pages[1].Controls.Add(this.acceptOptions);
             this.pages[1].Controls.Add(this.WASDcheckBox);
             this.pages[1].Controls.Add(this.showNewCheckBox);

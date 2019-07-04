@@ -267,7 +267,7 @@ namespace _2048_by_Hemok98
 
             int xSize = 117;
 
-            this.goToOptionsPanelButton.BackColor = System.Drawing.Color.LightGray;
+            this.goToOptionsPanelButton.BackColor = System.Drawing.Color.BlanchedAlmond;
             this.goToOptionsPanelButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.goToOptionsPanelButton.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Bold);
             this.goToOptionsPanelButton.ForeColor = System.Drawing.Color.DarkRed;
@@ -280,7 +280,7 @@ namespace _2048_by_Hemok98
             this.goToOptionsPanelButton.Click += new System.EventHandler(this.GoToPage);
 
             // 
-            this.goToMainPanelButton.BackColor = System.Drawing.Color.LightGray;
+            this.goToMainPanelButton.BackColor = System.Drawing.Color.BlanchedAlmond;
             this.goToMainPanelButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.goToMainPanelButton.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Bold);
             this.goToMainPanelButton.ForeColor = System.Drawing.Color.DarkRed;
@@ -294,7 +294,7 @@ namespace _2048_by_Hemok98
             // 
             // goToSavePanelButton
             // 
-            this.goToSavePanelButton.BackColor = System.Drawing.Color.LightGray;
+            this.goToSavePanelButton.BackColor = System.Drawing.Color.BlanchedAlmond;
             this.goToSavePanelButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.goToSavePanelButton.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Bold);
             this.goToSavePanelButton.ForeColor = System.Drawing.Color.DarkRed;
@@ -308,7 +308,7 @@ namespace _2048_by_Hemok98
             // 
             // goToLoadPanelButton
             // 
-            this.goToLoadPanelButton.BackColor = System.Drawing.Color.LightGray;
+            this.goToLoadPanelButton.BackColor = System.Drawing.Color.BlanchedAlmond;
             this.goToLoadPanelButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.goToLoadPanelButton.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Bold);
             this.goToLoadPanelButton.ForeColor = System.Drawing.Color.DarkRed;
@@ -321,7 +321,7 @@ namespace _2048_by_Hemok98
             this.goToLoadPanelButton.Click += new System.EventHandler(this.GoToPage);
             //
             ///
-            this.goToAchivesPanelButton.BackColor = System.Drawing.Color.LightGray;
+            this.goToAchivesPanelButton.BackColor = System.Drawing.Color.BlanchedAlmond; ;
             this.goToAchivesPanelButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.goToAchivesPanelButton.Font = new System.Drawing.Font("Comic Sans MS", 11F, System.Drawing.FontStyle.Bold);
             this.goToAchivesPanelButton.ForeColor = System.Drawing.Color.DarkRed;

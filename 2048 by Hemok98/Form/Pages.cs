@@ -13,7 +13,7 @@ namespace _2048_by_Hemok98
             {
                 this.pages[i] = new Panel();
 
-                this.pages[i].BackColor = System.Drawing.Color.Transparent;
+                this.pages[i].BackColor = System.Drawing.Color.White;
                 this.pages[i].Visible = false;
                 this.pages[i].Location = new System.Drawing.Point(1, 30);
                 this.pages[i].Name = "page" + i.ToString();

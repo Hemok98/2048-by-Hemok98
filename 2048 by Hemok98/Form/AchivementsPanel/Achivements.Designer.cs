@@ -28,7 +28,10 @@ namespace _2048_by_Hemok98
                 string descrip =  str.Substring(0, str.IndexOf(";")) ;
                 str = str.Substring(str.IndexOf(";") + 1);
                 //descrip = name;
-                this.achivesDisplay[i] = new AchivementsPanel(name, descrip, ((System.Drawing.Bitmap)(resources.GetObject("swapButton.BackgroundImage"))),10,10+i*100);
+                //string imageName = "swapButton.BackgroundImage";
+                //if (i < 10) imageName = "achiev" + (i + 1).ToString();
+                string imageName = "achiev" + (i + 1).ToString();
+                this.achivesDisplay[i] = new AchivementsPanel(name, descrip, ((System.Drawing.Bitmap)(resources.GetObject(imageName))),10,10+i*100);
                 this.pages[4].Controls.Add(achivesDisplay[i]);
                 i++;
                 if (str != "") str = str.Substring(2);
